@@ -4,7 +4,7 @@ import android.app.Application
 import com.example.habitsca.module.ApplicationComponent
 import com.example.habitsca.module.DaggerApplicationComponent
 
-class App: Application() {
+open class App: Application() {
 
     lateinit var component: ApplicationComponent
 

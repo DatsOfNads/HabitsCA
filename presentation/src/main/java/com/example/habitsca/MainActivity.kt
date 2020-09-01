@@ -2,8 +2,6 @@ package com.example.habitsca
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
-import com.example.habitsca.module.DaggerApplicationComponent
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -15,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        DaggerApplicationComponent.create().inject(this)
+        (application as App).component.inject(this)
 
         button.setOnClickListener {
            viewModel.click()
