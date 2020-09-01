@@ -16,7 +16,7 @@ class ServerRepositoryImpl(
 
         return if (response.isSuccessful)
             response.body()?.map {
-                habitsMapper.map(it)
+                habitsMapper.mapServerHabitToHabit(it)
             }
         else
             null

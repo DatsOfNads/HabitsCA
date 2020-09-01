@@ -1,4 +1,4 @@
-package com.example.domain.usecase
+package com.example.domain.usecase.server
 
 import com.example.domain.model.Habit
 import com.example.domain.repository.ServerRepository

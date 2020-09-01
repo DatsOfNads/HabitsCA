@@ -19,7 +19,8 @@ class MainActivity : AppCompatActivity() {
         (application as App).component.inject(this)
 
         buttonGet.setOnClickListener {
-           viewModel.getAllHabits()
+           //viewModel.getAllHabits()
+            viewModel.getHabitsFromDatabase()
         }
 
         buttonSet.setOnClickListener {
@@ -35,7 +36,8 @@ class MainActivity : AppCompatActivity() {
                 doneDates = listOf()
             )
 
-            viewModel.putHabit(habit)
+            //viewModel.putHabit(habit)
+            viewModel.putHabitToDataBase(habit)
         }
 
         buttonDelete.setOnClickListener {

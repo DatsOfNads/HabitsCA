@@ -5,16 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Habit
-import com.example.domain.usecase.DeleteHabitUseCase
-import com.example.domain.usecase.GetAllHabitsUseCase
-import com.example.domain.usecase.PutHabitUseCase
+import com.example.domain.usecase.database.AddHabitUseCase
+import com.example.domain.usecase.database.GetAllDataUseCase
+import com.example.domain.usecase.server.DeleteHabitUseCase
+import com.example.domain.usecase.server.GetAllHabitsUseCase
+import com.example.domain.usecase.server.PutHabitUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
     private val getAllHabitsUseCase: GetAllHabitsUseCase,
     private val putHabitUseCase: PutHabitUseCase,
-    private val deleteHabitUseCase: DeleteHabitUseCase
+    private val deleteHabitUseCase: DeleteHabitUseCase,
+    private val addHabitUseCase: AddHabitUseCase,
+    private val getAllDataUseCase: GetAllDataUseCase
 ): ViewModel() {
 
     private val allHabitsData = MutableLiveData<List<Habit>>()
@@ -39,6 +43,19 @@ class MainActivityViewModel @Inject constructor(
         viewModelScope.launch {
             val unit = deleteHabitUseCase.execute(uid)
             System.err.println("Удолил $unit")
+        }
+    }
+
+    fun putHabitToDataBase(habit: Habit){
+        viewModelScope.launch {
+            addHabitUseCase.execute(habit)
+        }
+    }
+
+    fun getHabitsFromDatabase(){
+        viewModelScope.launch {
+            val habits = getAllDataUseCase.execute()
+            System.err.println("habits $habits")
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.habitsca
 
 import android.app.Application
 import com.example.habitsca.module.ApplicationComponent
+import com.example.habitsca.module.ContextModule
 import com.example.habitsca.module.DaggerApplicationComponent
 
 open class App: Application() {
@@ -10,6 +11,6 @@ open class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        component = DaggerApplicationComponent.create()
+        component = DaggerApplicationComponent.builder().contextModule(ContextModule(applicationContext)).build()
     }
 }
