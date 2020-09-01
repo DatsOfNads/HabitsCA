@@ -1,0 +1,12 @@
+package com.example.domain.usecase
+
+import com.example.domain.model.Habit
+import com.example.domain.repository.ServerRepository
+import javax.inject.Inject
+
+class GetAllHabitsUseCase @Inject constructor(private val serverRepository: ServerRepository) {
+
+    suspend fun execute(): List<Habit>?{
+        return serverRepository.getAllHabits()
+    }
+}
