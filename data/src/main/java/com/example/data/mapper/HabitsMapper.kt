@@ -1,15 +1,15 @@
 package com.example.data.mapper
 
-import com.example.data.response.HabitsResponse
 import com.example.domain.model.Habit
 import javax.inject.Inject
 
 class HabitsMapper @Inject constructor() {
-    fun map(it: HabitsResponse): Habit{
+    fun map(it: Habit): Habit{
 
         val doneDates = it.doneDates ?: listOf()
 
         return Habit(
+                uid = it.uid,
                 title = it.title,
                 description = it.description,
                 priority = it.priority,

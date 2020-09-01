@@ -3,6 +3,7 @@ package com.example.domain.model
 import java.io.Serializable
 
 data class Habit(
+    var uid: String?,
     val title: String,
     val description: String,
     val priority: Int,
@@ -10,5 +11,5 @@ data class Habit(
     val count: Int,
     val frequency: Int,
     val date: Long,
-    var doneDates: List<String>
+    var doneDates: List<String>?
 ): Serializable
