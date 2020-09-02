@@ -13,7 +13,7 @@ class MainActivityViewModel @Inject constructor(
     private val addHabitUseCase: AddHabitUseCase,
     private val getAllDataUseCase: GetAllDataUseCase,
     private val deleteHabitUseCase: DeleteHabitUseCase,
-    private val subscribeAllDataUseCase: SubscribeAllDataUseCase
+    subscribeAllDataUseCase: SubscribeAllDataUseCase
 ): ViewModel() {
 
     val subscribeAllHabits = subscribeAllDataUseCase.execute().asLiveData()

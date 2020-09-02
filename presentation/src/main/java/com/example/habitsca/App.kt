@@ -7,10 +7,10 @@ import com.example.habitsca.module.DaggerApplicationComponent
 
 open class App: Application() {
 
-    lateinit var component: ApplicationComponent
+    lateinit var component: DaggerApplicationComponent.Builder
 
     override fun onCreate() {
         super.onCreate()
-        component = DaggerApplicationComponent.builder().contextModule(ContextModule(applicationContext)).build()
+        component = DaggerApplicationComponent.builder().contextModule(ContextModule(applicationContext))
     }
 }
