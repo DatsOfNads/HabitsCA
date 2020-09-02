@@ -1,8 +1,8 @@
 package com.example.data.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.data.model.HabitRoom
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HabitsDao {
@@ -20,7 +20,7 @@ interface HabitsDao {
     suspend fun deleteAll()
 
     @Query("SELECT * FROM habits_data ORDER BY date DESC")
-    fun subscribeAllData(): LiveData<List<HabitRoom>>
+    fun subscribeAllData(): Flow<List<HabitRoom>>
 
     @Query("SELECT * FROM habits_data ORDER BY date DESC")
     fun getAllData(): List<HabitRoom>

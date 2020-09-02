@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
 
         buttonSet.setOnClickListener {
             val habit = Habit(
-                uid = "bob",
-                title = "Вещаю из CA",
+                uid = "bobh",
+                title = "Вещаю из CAl",
                 description = "Тут сложна, но интересна",
                 priority = 1,
                 type = 0,
@@ -41,8 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonDelete.setOnClickListener {
-            val uid = "dae6e801-3eca-4fe0-9f7d-9de88fd95d77"
-            viewModel.deleteHabit(uid)
+
         }
 
         viewModel.subscribeAllHabits.observe(this, {

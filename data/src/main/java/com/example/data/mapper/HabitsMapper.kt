@@ -6,7 +6,6 @@ import javax.inject.Inject
 
 class HabitsMapper @Inject constructor() {
 
-    //ГОВНО ГОВНО ПЕРЕИМЕНУЙ
     fun mapServerHabitToHabit(it: Habit): Habit{
 
         val doneDates = it.doneDates ?: listOf()
@@ -24,7 +23,6 @@ class HabitsMapper @Inject constructor() {
             )
     }
 
-    //ГОВНО ГОВНО ПЕРЕИМЕНУЙ ААААААААААААААА
     fun mapHabitsRoomToHabit(it: HabitRoom): Habit{
         return Habit(
             uid = it.uid,
@@ -36,6 +34,20 @@ class HabitsMapper @Inject constructor() {
             frequency = it.frequency,
             date = it.date,
             doneDates = it.doneDates
+        )
+    }
+
+    fun mapHabitToRoomHabit(habit: Habit): HabitRoom{
+        return HabitRoom(
+            uid = habit.uid!!,
+            title = habit.title,
+            description = habit.description,
+            priority = habit.priority,
+            type = habit.type,
+            count = habit.count,
+            frequency = habit.frequency,
+            date = habit.date,
+            doneDates = habit.doneDates
         )
     }
 }
