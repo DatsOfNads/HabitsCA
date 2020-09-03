@@ -1,6 +1,7 @@
 package com.example.habitsca.module
 
 import com.example.habitsca.view.fragment.AddFragment
+import com.example.habitsca.view.fragment.EditFragment
 import com.example.habitsca.view.fragment.GoodHabitsFragment
 import com.example.habitsca.view.fragment.HomeFragment
 import dagger.Component
@@ -12,4 +13,5 @@ interface ApplicationComponent {
     fun inject(homeFragment: HomeFragment)
     fun inject(goodHabitsFragment: GoodHabitsFragment)
     fun inject(addFragment: AddFragment)
+    fun inject(editFragment: EditFragment)
 }

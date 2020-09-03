@@ -33,5 +33,9 @@
     <fragment
         android:id="@+id/editFragment"
         android:name="com.example.habitsca.view.fragment.EditFragment"
-        android:label="fragment_edit" />
+        android:label="fragment_edit" >
+        <argument
+            android:name="habit"
+            app:argType="com.example.domain.model.Habit" />
+    </fragment>
 </navigation>

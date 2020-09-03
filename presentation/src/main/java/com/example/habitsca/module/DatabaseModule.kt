@@ -23,13 +23,31 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideHabitsDao(context: Context): HabitsDao {
-        val database = Room.databaseBuilder(
-            context.applicationContext,
-            HabitsDatabase::class.java,
-            "habits_data"
-        ).allowMainThreadQueries()
-            .build()
+        return getDatabase(context).habitsDao()
+    }
 
-        return database.habitsDao()
+    companion object{
+        @Volatile
+        private var INSTANCE: HabitsDatabase? = null
+
+        fun getDatabase(context: Context): HabitsDatabase{
+            val tempInstance = INSTANCE
+
+            if(tempInstance != null){
+                return tempInstance
+            }
+
+            synchronized(this){
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    HabitsDatabase::class.java,
+                    "habits_data"
+                ).allowMainThreadQueries()
+                    .build()
+
+                INSTANCE = instance
+                return instance
+            }
+        }
     }
 }

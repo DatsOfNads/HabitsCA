@@ -2,9 +2,9 @@ package com.example.habitsca.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import com.example.domain.model.Habit
 import com.example.habitsca.App
 import com.example.habitsca.view.viewmodel.GoodHabitsFragmentModel
-import kotlinx.android.synthetic.main.fragment_habits.*
 import javax.inject.Inject
 
 class GoodHabitsFragment: HabitsFragment() {
@@ -20,7 +20,7 @@ class GoodHabitsFragment: HabitsFragment() {
             .inject(this)
 
         model.subscribeAllData.observe(viewLifecycleOwner, {
-            textView.text = it.toString()
+            habitsRecyclerViewAdapter.addAll(it as ArrayList<Habit>)
         })
     }
 }

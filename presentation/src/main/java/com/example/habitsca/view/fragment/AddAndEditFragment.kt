@@ -71,7 +71,7 @@ open class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), DatePic
         checkErrors()
     }
 
-    private fun checkErrors(){
+    private fun checkErrors() {
         textInputEditTextTitle.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
 
@@ -82,7 +82,7 @@ open class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), DatePic
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(p0?.isNotEmpty() == true){
+                if (p0?.isNotEmpty() == true) {
                     textInputLayoutTitle.error =
                         EMPTY_STRING
                 }
@@ -100,7 +100,7 @@ open class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), DatePic
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(p0?.isNotEmpty() == true){
+                if (p0?.isNotEmpty() == true) {
                     textInputLayoutDescription.error =
                         EMPTY_STRING
                 }
@@ -118,7 +118,7 @@ open class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), DatePic
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(p0?.isNotEmpty() == true){
+                if (p0?.isNotEmpty() == true) {
                     textInputLayoutPriority.error =
                         EMPTY_STRING
                 }
@@ -136,7 +136,7 @@ open class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), DatePic
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(p0?.isNotEmpty() == true){
+                if (p0?.isNotEmpty() == true) {
                     textInputLayoutNumberOfTimes.error =
                         EMPTY_STRING
                 }
@@ -154,13 +154,19 @@ open class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), DatePic
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(p0?.isNotEmpty() == true){
+                if (p0?.isNotEmpty() == true) {
                     textInputLayoutPeriod.error =
                         EMPTY_STRING
                 }
             }
 
         })
+    }
+
+    open fun setChosenTime(chosenTime: Long){
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = chosenTime
+        this.chosenTime = calendar.time
     }
 
     open fun createNewHabit(): Habit? {
@@ -172,7 +178,7 @@ open class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), DatePic
             else -> null
         }
 
-        val period = when (textInputEditTextPeriod.text.toString()){
+        val frequency = when (textInputEditTextPeriod.text.toString()){
             resources.getString(R.string.period_a_day) -> Frequency.A_DAY
             resources.getString(R.string.period_a_week) -> Frequency.A_WEEK
             resources.getString(R.string.period_a_month) -> Frequency.A_MONTH
@@ -187,7 +193,7 @@ open class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), DatePic
 
         val title = textInputEditTextTitle.text.toString()
         val description = textInputEditTextDescription.text.toString()
-        val numberOfTimes = textInputEditTextNumberOfTimes.text.toString()
+        val count = textInputEditTextNumberOfTimes.text.toString()
 
         var hasErrors = false
 
@@ -201,7 +207,7 @@ open class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), DatePic
             hasErrors = true
         }
 
-        if(numberOfTimes.isEmpty()){
+        if(count.isEmpty()){
             textInputLayoutNumberOfTimes.error = "Введите количество раз"
             hasErrors = true
         }
@@ -211,7 +217,7 @@ open class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), DatePic
             hasErrors = true
         }
 
-        if (period == null){
+        if (frequency == null){
             textInputLayoutPeriod.error = "Выберите вариант из списка"
             hasErrors = true
         }
@@ -227,9 +233,9 @@ open class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), DatePic
             description = description,
             priority = priority!!,
             type = type,
-            count = numberOfTimes.toInt(),//переименуй!
-            frequency = period!!,//переименуй
-            date = chosenTime.time,//ага
+            count = count.toInt(),
+            frequency = frequency!!,
+            date = chosenTime.time,
             doneDates = listOf()
         )
     }

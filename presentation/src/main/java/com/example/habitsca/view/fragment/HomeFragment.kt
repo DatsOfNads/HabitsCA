@@ -5,10 +5,6 @@ import android.view.View
 import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.domain.model.Habit
-import com.example.domain.model.`object`.Frequency
-import com.example.domain.model.`object`.Priority
-import com.example.domain.model.`object`.Type
 import com.example.habitsca.App
 import com.example.habitsca.R
 import com.example.habitsca.adapter.ViewPagerAdapter
@@ -19,7 +15,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home_content.*
-import java.util.*
 import javax.inject.Inject
 
 class HomeFragment: Fragment(R.layout.fragment_home) {
@@ -53,21 +48,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         }.attach()
 
         floatingActionButton.setOnClickListener {
-            //findNavController().navigate(R.id.action_homeFragment_to_addFragment)
-
-            val habit = Habit(
-                uid  = UUID.randomUUID().toString(),
-                title = "testo",
-                description = "pesto",
-                priority = Priority.HIGH,
-                type = Type.GOOD,
-                count = 2,
-                frequency = Frequency.A_DAY,
-                date = 2,
-                doneDates = listOf()
-            )
-
-            model.addHabit(habit)
+            findNavController().navigate(R.id.action_homeFragment_to_addFragment)
         }
     }
 

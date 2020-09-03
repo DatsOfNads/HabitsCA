@@ -30,8 +30,7 @@ class DatabaseRepositoryImpl @Inject constructor(
             it.map { habitRoom ->
                 habitsMapper.mapHabitsRoomToHabit(habitRoom)
             }
-        }
-            .flowOn(Dispatchers.Default)
+        }.flowOn(Dispatchers.Default)
             .conflate()
     }
 
