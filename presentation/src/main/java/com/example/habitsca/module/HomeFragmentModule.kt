@@ -25,6 +25,7 @@ class HomeFragmentModule(
         return ViewPagerAdapter(fragmentList,activity)
     }
 
+    @Singleton
     @Provides
     fun provideFragmentActivity(): FragmentActivity{
         return activity

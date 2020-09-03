@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">HabitsCA</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="priority_low">Low</string>
+    <string name="priority_medium">Medium</string>
+    <string name="priority_high">High</string>
+
+    <string name="period_a_day">A day</string>
+    <string name="period_a_week">A week</string>
+    <string name="period_a_month">A month</string>
+    <string name="period_a_year">A year</string>
+
+    <string name="sort_none">None</string>
+    <string name="sort_by_priority">By priority</string>
+    <string name="sort_by_number_of_times">By priority</string>
+    <string name="sort_by_period">By priority</string>
 </resources>

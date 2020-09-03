@@ -8,11 +8,30 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.habitsca.view.fragment.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="Habits"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_addFragment"
+            app:destination="@id/addFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+        <action
+            android:id="@+id/action_homeFragment_to_editFragment"
+            app:destination="@id/editFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.habitsca.view.fragment.AboutFragment"
-        android:label="fragment_about"
+        android:label="О приложении"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.habitsca.view.fragment.AddFragment"
+        android:label="fragment_add" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.habitsca.view.fragment.EditFragment"
+        android:label="fragment_edit" />
 </navigation>

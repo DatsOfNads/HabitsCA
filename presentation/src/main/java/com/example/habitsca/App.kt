@@ -1,7 +1,6 @@
 package com.example.habitsca
 
 import android.app.Application
-import com.example.habitsca.module.ApplicationComponent
 import com.example.habitsca.module.ContextModule
 import com.example.habitsca.module.DaggerApplicationComponent
 
