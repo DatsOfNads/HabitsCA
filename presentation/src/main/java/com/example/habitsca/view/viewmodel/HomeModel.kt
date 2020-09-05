@@ -12,7 +12,7 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class HomeModel @Inject constructor(
+class HomeModel constructor(
     subscribeAllDataUseCase: SubscribeAllDataUseCase
 ): ViewModel() {
 
