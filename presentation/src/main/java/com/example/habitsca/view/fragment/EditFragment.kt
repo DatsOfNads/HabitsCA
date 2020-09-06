@@ -1,9 +1,17 @@
 package com.example.habitsca.view.fragment
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.NavigationUI
 import com.example.domain.model.Habit
 import com.example.domain.model.`object`.Frequency
 import com.example.domain.model.`object`.Priority
@@ -16,6 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
+
 class EditFragment : AddAndEditFragment() {
 
     private val args: EditFragmentArgs? by navArgs()
@@ -26,6 +35,8 @@ class EditFragment : AddAndEditFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setHasOptionsMenu(true)
 
         (activity?.application as App)
             .component
@@ -46,6 +57,24 @@ class EditFragment : AddAndEditFragment() {
 
             Navigation.findNavController(requireView()).popBackStack()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.edit_toolbar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.itemId == R.id.action_delete) {
+            showAlertDialog()
+        }
+
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            requireView().findNavController()
+        )
+                || super.onOptionsItemSelected(item)
     }
 
     private fun initView(habit: Habit) {
@@ -83,5 +112,20 @@ class EditFragment : AddAndEditFragment() {
             Type.GOOD -> radioButtonGoodHabit.isChecked = true
             Type.BAD -> radioButtonBadHabit.isChecked = true
         }
+    }
+
+    private fun showAlertDialog(){
+        val builder  = android.app.AlertDialog.Builder(requireContext())
+        builder.setTitle("Удалить привычку?")
+        builder.setMessage("Это действие нельзя будет отменить")
+        builder.setPositiveButton("Удалить") { dialog, id ->
+            model.deleteHabit(habitForEditing)
+            Navigation.findNavController(requireView()).popBackStack()
+        }
+
+        builder.setNegativeButton("Отмена"){ dialog, id ->
+            dialog.cancel()
+        }
+        builder.show()
     }
 }
