@@ -34,10 +34,6 @@ class HabitsRecyclerViewAdapter(
         holder.constraintLayout.setOnClickListener {
             adapterOnClick(habits[position])
         }
-
-        if(position + 1 == habits.size){
-            holder.divider.visibility = View.INVISIBLE
-        }
     }
 
     override fun getItemCount(): Int = habits.size
@@ -57,20 +53,20 @@ class HabitsRecyclerViewAdapter(
             title.text = habit.title
             description.text = habit.description
 
-            habit_status.text = when(habit.type){
-                Type.GOOD -> "Хорошая привычка"
-                Type.BAD -> "Плохая привычка"
+            chipType.text = when(habit.type){
+                Type.GOOD -> "Хорошая"
+                Type.BAD -> "Плохая"
                 else -> null
             }
 
-            priority.text = when(habit.priority){
+            chipPriority.text = when(habit.priority){
                 Priority.LOW -> "Приоритет низкий"
                 Priority.MEDIUM -> "Приоритет средний"
                 Priority.HIGH -> "Приоритет высокий"
                 else -> null
             }
 
-            periodicity.text = habit.count.toString().plus(
+            chipFrequency.text = habit.count.toString().plus(
                 when(habit.frequency){
                     Frequency.A_DAY -> " раз в день"
                     Frequency.A_WEEK -> " раз в неделю"
@@ -79,12 +75,6 @@ class HabitsRecyclerViewAdapter(
                     else -> null
                 }
             )
-
-            imageViewStatus.setImageResource(when(habit.type){
-                Type.GOOD -> R.drawable.icon_good_habit_24dp
-                Type.BAD -> R.drawable.icon_bad_habit_24dp
-                else -> R.drawable.icon_good_habit_24dp
-            })
         }
     }
 }

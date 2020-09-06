@@ -4,5 +4,6 @@
     <color name="primaryLightColor">#b2fab4</color>
     <color name="primaryDarkColor">#519657</color>
     <color name="primaryTextColor">#000000</color>
+    <color name="greyColorLight">#F4F3F3</color>
     <color name="greyColor">#bdbdbd</color>
 </resources>

@@ -11,11 +11,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
         android:fontFamily="@font/roboto_medium"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewAdd"
         app:layout_constraintStart_toEndOf="@+id/color"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Чистить зубы" />
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/title"
+        android:padding="4dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/title"
@@ -37,12 +37,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/habit_status"
+        app:layout_constraintTop_toBottomOf="@+id/title"
         tools:text="Каждое утро и вечер нужно чистить зубы. Чистка зубов позволяет создать естественную микрофлору ротовой полости, которая будет защищать зубы от вредных и опасных бактерий. Важно делать это ежедневно, чтобы положительный эффект не пропал." />
 
     <androidx.constraintlayout.widget.Barrier
@@ -50,100 +50,82 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="title,color"
+        app:constraint_referenced_ids="title,color,textViewAdd"
         tools:layout_editor_absoluteY="731dp" />
-
-    <TextView
-        android:id="@+id/habit_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/barrier"
-        tools:text="Хорошая привычка" />
-
-    <ImageView
-        android:id="@+id/imageViewStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/habit_status"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/habit_status"
-        app:srcCompat="@drawable/icon_good_habit_24dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="71dp" />
+        app:layout_constraintGuide_begin="42dp" />
 
-    <ImageView
-        android:id="@+id/imageViewDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/description"
-        app:srcCompat="@drawable/icon_description_24dp" />
-
-    <ImageView
-        android:id="@+id/imageViewPriority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/priority"
-        app:srcCompat="@drawable/icon_priority_24dp" />
-
-    <TextView
-        android:id="@+id/priority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/roboto"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/description"
-        tools:text="Приоритет средний" />
-
-    <TextView
-        android:id="@+id/periodicity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/roboto"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/priority"
-        tools:text="Каждый день" />
-
-    <ImageView
-        android:id="@+id/imageViewPeriodicity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/periodicity"
-        app:srcCompat="@drawable/icon_calendar_24dp" />
-
-    <View
-        android:id="@+id/divider"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="?android:attr/listDivider"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageViewPeriodicity"
-        app:layout_constraintTop_toBottomOf="@+id/periodicity" />
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/description">
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group"
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipType"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="false"
+            android:fontFamily="@font/roboto"
+            app:chipBackgroundColor="@color/greyColorLight"
+            app:rippleColor="@null"
+            tools:text="Хорошая" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipDoneDates"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="false"
+            android:fontFamily="@font/roboto"
+            android:text="Выполнено 15 раз"
+            app:chipBackgroundColor="@color/greyColorLight"
+            app:rippleColor="@null"
+            tools:text="Выполнено 15 раз" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipPriority"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="false"
+            android:fontFamily="@font/roboto"
+            app:chipBackgroundColor="@color/greyColorLight"
+            app:rippleColor="@null"
+            tools:text="Приоритет высокий" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFrequency"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="false"
+            android:fontFamily="@font/roboto"
+            app:chipBackgroundColor="@color/greyColorLight"
+            app:rippleColor="@null"
+            tools:text="2 раза в день" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/textViewAdd"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto"
+        android:padding="4dp"
+        android:text="+1"
+        android:textColor="@color/primaryColor"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
