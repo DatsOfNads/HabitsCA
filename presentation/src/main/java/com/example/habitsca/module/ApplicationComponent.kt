@@ -12,4 +12,5 @@ interface ApplicationComponent {
     fun inject(addFragment: AddFragment)
     fun inject(editFragment: EditFragment)
     fun inject(badHabitsFragment: BadHabitsFragment)
+    fun inject(syncFragment: SyncFragment)
 }

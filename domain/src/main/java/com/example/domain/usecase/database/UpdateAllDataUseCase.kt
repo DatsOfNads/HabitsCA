@@ -4,11 +4,14 @@ import com.example.domain.model.Habit
 import com.example.domain.repository.DatabaseRepository
 import javax.inject.Inject
 
-class GetAllDataUseCase @Inject constructor(
+class UpdateAllDataUseCase @Inject constructor(
     private val databaseRepository: DatabaseRepository
 ) {
 
-    suspend fun execute(): List<Habit>{
-        return databaseRepository.getAllData()
+    suspend fun execute(habits: List<Habit>){
+        databaseRepository.deleteAll()
+        habits.forEach {
+            databaseRepository.addHabit(it)
+        }
     }
 }

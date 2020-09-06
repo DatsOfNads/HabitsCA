@@ -9,10 +9,9 @@ import com.example.domain.model.`object`.Frequency
 import com.example.domain.model.`object`.Type
 import com.example.domain.usecase.database.SubscribeAllDataUseCase
 import java.util.*
-import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class HomeModel constructor(
+class HomeFragmentModel constructor(
     subscribeAllDataUseCase: SubscribeAllDataUseCase
 ): ViewModel() {
 
@@ -48,6 +47,7 @@ class HomeModel constructor(
     }
 
     init {
+        sortDirectionData.value = true
         subscribeAllDataUseCase.execute().asLiveData().observeForever(observer)
     }
 

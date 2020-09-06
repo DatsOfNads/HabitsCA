@@ -29,13 +29,18 @@
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.habitsca.view.fragment.AddFragment"
-        android:label="fragment_add" />
+        android:label="Создать привычку" />
     <fragment
         android:id="@+id/editFragment"
         android:name="com.example.habitsca.view.fragment.EditFragment"
-        android:label="fragment_edit" >
+        android:label="Изменить привычку" >
         <argument
             android:name="habit"
             app:argType="com.example.domain.model.Habit" />
     </fragment>
+    <fragment
+        android:id="@+id/syncFragment"
+        android:name="com.example.habitsca.view.fragment.SyncFragment"
+        android:label="Синхронизация"
+        tools:layout="@layout/fragment_sync" />
 </navigation>

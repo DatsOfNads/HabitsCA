@@ -6,7 +6,7 @@ import androidx.navigation.navGraphViewModels
 import com.example.domain.model.Habit
 import com.example.habitsca.App
 import com.example.habitsca.R
-import com.example.habitsca.view.viewmodel.HomeModel
+import com.example.habitsca.view.viewmodel.HomeFragmentModel
 import com.example.habitsca.view.viewmodel.factory.HomeModelFactory
 import javax.inject.Inject
 
@@ -15,7 +15,7 @@ class GoodHabitsFragment: HabitsFragment() {
     @Inject
     lateinit var viewModelFactory: HomeModelFactory
 
-    private val model: HomeModel by navGraphViewModels(R.id.my_nav){
+    private val fragmentModel: HomeFragmentModel by navGraphViewModels(R.id.my_nav){
         viewModelFactory
     }
 
@@ -29,7 +29,7 @@ class GoodHabitsFragment: HabitsFragment() {
 
        // model.search("сабачку")
 
-        model.subscribeGoodHabits().observe(viewLifecycleOwner, {
+        fragmentModel.subscribeGoodHabits().observe(viewLifecycleOwner, {
             habitsRecyclerViewAdapter.addAll(it as ArrayList<Habit>)
         })
     }

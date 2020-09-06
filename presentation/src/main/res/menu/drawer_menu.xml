@@ -8,6 +8,11 @@
             android:icon="@drawable/icon_home_24dp" />
 
         <item
+            android:title="Синхронизация"
+            android:id="@+id/syncFragment"
+            android:icon="@drawable/icon_sync_24dp" />
+
+        <item
             android:title="О приложении"
             android:id="@+id/aboutFragment"
             android:icon="@drawable/icon_info_24dp" />
