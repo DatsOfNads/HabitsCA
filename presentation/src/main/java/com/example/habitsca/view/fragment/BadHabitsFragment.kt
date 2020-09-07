@@ -15,7 +15,7 @@ class BadHabitsFragment: HabitsFragment() {
     @Inject
     lateinit var viewModelFactory: HomeModelFactory
 
-    private val fragmentModel: HomeFragmentModel by navGraphViewModels(R.id.my_nav){
+    private val model: HomeFragmentModel by navGraphViewModels(R.id.my_nav){
         viewModelFactory
     }
 
@@ -27,8 +27,12 @@ class BadHabitsFragment: HabitsFragment() {
             .build()
             .inject(this)
 
-        fragmentModel.subscribeBadHabits().observe(viewLifecycleOwner, {
+        model.subscribeBadHabits().observe(viewLifecycleOwner, {
             habitsRecyclerViewAdapter.addAll(it as ArrayList<Habit>)
         })
+    }
+
+    override fun onDoneDateAdded(habit: Habit) {
+        model.setDoneDate(habit)
     }
 }

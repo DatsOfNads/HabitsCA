@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.item_habit.*
 
 class HabitsRecyclerViewAdapter(
     private var habits: ArrayList<Habit>,
-    val adapterOnClick : (Habit) -> Unit
+    val editHabitListener : (Habit) -> Unit,
+    val addDoneDateListener: (Habit) -> Unit
 ): RecyclerView.Adapter<HabitsRecyclerViewAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -32,7 +33,11 @@ class HabitsRecyclerViewAdapter(
         holder.bind(habits[position])
 
         holder.constraintLayout.setOnClickListener {
-            adapterOnClick(habits[position])
+            editHabitListener(habits[position])
+        }
+
+        holder.textViewAdd.setOnClickListener {
+            addDoneDateListener(habits[position])
         }
     }
 
@@ -65,6 +70,8 @@ class HabitsRecyclerViewAdapter(
                 Priority.HIGH -> "Приоритет высокий"
                 else -> null
             }
+
+            chipDoneDates.text = "Выполнено ${habit.doneDates?.size?.minus(1)} раз"
 
             chipFrequency.text = habit.count.toString().plus(
                 when(habit.frequency){

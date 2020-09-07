@@ -7,12 +7,15 @@ import com.example.domain.model.Habit
 import com.example.domain.model.Sort
 import com.example.domain.model.`object`.Frequency
 import com.example.domain.model.`object`.Type
+import com.example.domain.usecase.database.EditHabitUseCase
 import com.example.domain.usecase.database.SubscribeAllDataUseCase
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
 class HomeFragmentModel constructor(
-    subscribeAllDataUseCase: SubscribeAllDataUseCase
+    subscribeAllDataUseCase: SubscribeAllDataUseCase,
+    private val editHabitUseCase: EditHabitUseCase
 ): ViewModel() {
 
     private var habits: ArrayList<Habit> = arrayListOf()
@@ -92,6 +95,15 @@ class HomeFragmentModel constructor(
 
         goodHabitsData.value = searchedGoodHabits as ArrayList<Habit>
         badHabitsData.value = searchedBadHabits as ArrayList<Habit>
+    }
+
+    fun setDoneDate(habit: Habit){
+
+        viewModelScope.launch {
+            val doneDate = Calendar.getInstance().timeInMillis.toString()
+            habit.doneDates = habit.doneDates?.plus(doneDate)
+            editHabitUseCase.execute(habit)
+        }
     }
 
     fun sortHabits(sort: Sort){
