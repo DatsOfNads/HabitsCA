@@ -1,5 +1,6 @@
 package com.example.habitsca.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_habit.*
 
 class HabitsRecyclerViewAdapter(
+    private val context: Context,
     private var habits: ArrayList<Habit>,
     val editHabitListener : (Habit) -> Unit,
     val addDoneDateListener: (Habit) -> Unit
@@ -30,14 +32,35 @@ class HabitsRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(habits[position])
+
+        val habit = habits[position]
+
+        holder.bind(habit)
+
+        val doneDatesCount = habit.doneDates?.size?.minus(1) ?: 0
+        val doneDatesPlural = context.resources.getQuantityString(R.plurals.plurals_done_dates, doneDatesCount, doneDatesCount)
+
+        holder.chipDoneDates.text = doneDatesPlural
+
+        val count = habit.count
+        val countPlural = context.resources.getQuantityString(R.plurals.plurals_count, count, count)
+
+        holder.chipFrequency.text = countPlural.plus(
+            when(habit.frequency){
+                Frequency.A_DAY -> " в день"
+                Frequency.A_WEEK -> " в неделю"
+                Frequency.A_MONTH -> " в месяц"
+                Frequency.A_YEAR -> " в год"
+                else -> null
+            }
+        )
 
         holder.constraintLayout.setOnClickListener {
-            editHabitListener(habits[position])
+            editHabitListener(habit)
         }
 
         holder.textViewAdd.setOnClickListener {
-            addDoneDateListener(habits[position])
+            addDoneDateListener(habit)
         }
     }
 
@@ -70,18 +93,6 @@ class HabitsRecyclerViewAdapter(
                 Priority.HIGH -> "Приоритет высокий"
                 else -> null
             }
-
-            chipDoneDates.text = "Выполнено ${habit.doneDates?.size?.minus(1)} раз"
-
-            chipFrequency.text = habit.count.toString().plus(
-                when(habit.frequency){
-                    Frequency.A_DAY -> " раз в день"
-                    Frequency.A_WEEK -> " раз в неделю"
-                    Frequency.A_MONTH -> " раз в месяц"
-                    Frequency.A_YEAR -> " раз в год"
-                    else -> null
-                }
-            )
         }
     }
 }

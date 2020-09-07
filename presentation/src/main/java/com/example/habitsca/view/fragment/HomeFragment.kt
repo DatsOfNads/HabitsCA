@@ -24,8 +24,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home_content.*
-import java.util.ArrayList
+import java.util.*
 import javax.inject.Inject
+
 
 class HomeFragment: Fragment(R.layout.fragment_home) {
 
@@ -60,7 +61,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
 
         viewPager.adapter = viewPagerAdapter
 
-        TabLayoutMediator(tabLayout,viewPager){tab, position ->
+        TabLayoutMediator(tabLayout, viewPager){ tab, position ->
             when(position){
                 0 -> tab.text = "Хорошие"
                 else -> tab.text = "Плохие"
@@ -75,7 +76,10 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                floatingActionButton.animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start()
+                floatingActionButton.animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset)
+                    .setDuration(
+                        0
+                    ).start()
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -84,7 +88,8 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             }
         })
 
-        bottomSheet.viewTreeObserver.addOnGlobalLayoutListener (object: ViewTreeObserver.OnGlobalLayoutListener {
+        bottomSheet.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 bottomSheet.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 val hidden = bottomSheet.getChildAt(0)
@@ -180,15 +185,19 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                when(p0.toString()){
+                when (p0.toString()) {
                     resources.getString(R.string.sort_none) -> fragmentModel.sortHabits(
-                        Sort.NONE)
+                        Sort.NONE
+                    )
                     resources.getString(R.string.sort_by_priority) -> fragmentModel.sortHabits(
-                        Sort.BY_PRIORITY)
+                        Sort.BY_PRIORITY
+                    )
                     resources.getString(R.string.sort_by_number_of_times) -> fragmentModel.sortHabits(
-                        Sort.BY_NUMBER_OF_TIMES)
+                        Sort.BY_NUMBER_OF_TIMES
+                    )
                     resources.getString(R.string.sort_by_period) -> fragmentModel.sortHabits(
-                        Sort.BY_PERIOD)
+                        Sort.BY_PERIOD
+                    )
                 }
             }
 
@@ -202,11 +211,11 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         }
 
         fragmentModel.subscribeSortDirection().observe(viewLifecycleOwner, {
-            if (it){
+            if (it) {
                 imageButtonUp.setImageResource(R.drawable.icon_arrow_upward_gray_36dp)
                 imageButtonDown.setImageResource(R.drawable.icon_arrow_downward_36dp)
 
-            } else{
+            } else {
                 imageButtonUp.setImageResource(R.drawable.icon_arrow_upward_36dp)
                 imageButtonDown.setImageResource(R.drawable.icon_arrow_downward_gray_36dp)
             }

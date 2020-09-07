@@ -18,6 +18,7 @@ abstract class HabitsFragment: Fragment(R.layout.fragment_habits) {
         super.onViewCreated(view, savedInstanceState)
 
         habitsRecyclerViewAdapter = HabitsRecyclerViewAdapter(
+            requireContext(),
             ArrayList(),
             ::onHabitEdit,
             ::onDoneDateAdded
