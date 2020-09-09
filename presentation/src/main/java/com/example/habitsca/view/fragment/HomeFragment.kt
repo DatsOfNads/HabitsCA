@@ -6,12 +6,14 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.model.FilterElement
 import com.example.domain.model.Sort
+import com.example.domain.model.`object`.Type
 import com.example.habitsca.App
 import com.example.habitsca.R
 import com.example.habitsca.adapter.FilterRecyclerViewAdapter
@@ -35,7 +37,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     @Inject
     lateinit var viewModelFactory: HomeModelFactory
 
-    private val fragmentModel: HomeFragmentModel by navGraphViewModels(R.id.my_nav){
+    private val model: HomeFragmentModel by navGraphViewModels(R.id.my_nav){
         viewModelFactory
     }
 
@@ -49,6 +51,73 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
                 .build()
                 .inject(this)
         }
+
+        model.subscribeHabitState().observe(viewLifecycleOwner, {event ->
+
+            event.getContentIfNotHandled()?.let { habitState ->
+                val type = habitState.type
+                val count = habitState.count
+                val doneCount = habitState.doneCount
+
+                System.err.println("Количество выполненных: $doneCount")
+
+                if (type == Type.GOOD) {
+                    if (doneCount < count) {
+                        val deferenceBetweenValuesPlural = resources.getQuantityString(
+                            R.plurals.plurals_count,
+                            count - doneCount,
+                            count - doneCount
+                        )
+
+                        Toast.makeText(
+                            requireContext(),
+                            "Стоит выполнить ещё $deferenceBetweenValuesPlural",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (doneCount == count) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Ты выполнил план!",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (doneCount > count) {
+                        Toast.makeText(
+                            requireContext(),
+                            "You are breathtaking!",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    if (doneCount < count) {
+                        val deferenceBetweenValuesPlural = resources.getQuantityString(
+                            R.plurals.plurals_count,
+                            count - doneCount,
+                            count - doneCount
+                        )
+
+                        Toast.makeText(
+                            requireContext(),
+                            "Можете выполнить ещё $deferenceBetweenValuesPlural",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (doneCount == count) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Больше нельзя этого делать",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (doneCount > count) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Хватит это делать!",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
 
         initViewPager()
         initBottomSheet()
@@ -124,7 +193,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         recycler.layoutManager = LinearLayoutManager(activity)
         recycler.adapter = recyclerViewAdapter
 
-        fragmentModel.subscribeFilterElement().observe(viewLifecycleOwner, {
+        model.subscribeFilterElement().observe(viewLifecycleOwner, {
 
             for (element in 0 until it.size) {
                 val filterElement = it[element]
@@ -159,7 +228,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             }
 
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                fragmentModel.search(text.toString())
+                model.search(text.toString())
             }
         })
 
@@ -186,16 +255,16 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 when (p0.toString()) {
-                    resources.getString(R.string.sort_none) -> fragmentModel.sortHabits(
+                    resources.getString(R.string.sort_none) -> model.sortHabits(
                         Sort.NONE
                     )
-                    resources.getString(R.string.sort_by_priority) -> fragmentModel.sortHabits(
+                    resources.getString(R.string.sort_by_priority) -> model.sortHabits(
                         Sort.BY_PRIORITY
                     )
-                    resources.getString(R.string.sort_by_number_of_times) -> fragmentModel.sortHabits(
+                    resources.getString(R.string.sort_by_number_of_times) -> model.sortHabits(
                         Sort.BY_NUMBER_OF_TIMES
                     )
-                    resources.getString(R.string.sort_by_period) -> fragmentModel.sortHabits(
+                    resources.getString(R.string.sort_by_period) -> model.sortHabits(
                         Sort.BY_PERIOD
                     )
                 }
@@ -210,7 +279,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             findNavController().navigate(R.id.action_homeFragment_to_addFragment)
         }
 
-        fragmentModel.subscribeSortDirection().observe(viewLifecycleOwner, {
+        model.subscribeSortDirection().observe(viewLifecycleOwner, {
             if (it) {
                 imageButtonUp.setImageResource(R.drawable.icon_arrow_upward_gray_36dp)
                 imageButtonDown.setImageResource(R.drawable.icon_arrow_downward_36dp)
@@ -222,11 +291,11 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         })
 
         imageButtonUp.setOnClickListener {
-            fragmentModel.setSortDirection(true)
+            model.setSortDirection(true)
         }
 
         imageButtonDown.setOnClickListener {
-            fragmentModel.setSortDirection(false)
+            model.setSortDirection(false)
         }
     }
 

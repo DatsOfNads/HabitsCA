@@ -179,7 +179,7 @@ abstract class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), Dat
         this.set(Calendar.HOUR_OF_DAY, 0)
     }
 
-    open fun createToastError() =  Toast.makeText(requireContext(), "Заполнены не все поля!", Toast.LENGTH_SHORT).show()
+    open fun createToastError() = Toast.makeText(requireContext(), "Заполнены не все поля!", Toast.LENGTH_SHORT).show()
 
     abstract fun onTimeChosen(chosenTime: Long)
 }

@@ -1,6 +1,7 @@
 package com.example.domain.usecase
 
 import com.example.domain.model.Habit
+import com.example.domain.model.HabitState
 import com.example.domain.model.`object`.Frequency.A_DAY
 import com.example.domain.model.`object`.Frequency.A_MONTH
 import com.example.domain.model.`object`.Frequency.A_WEEK
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 class DoneDatesCheckUseCase @Inject constructor() {
 
-    fun execute(habit: Habit): Int{
+    fun execute(habit: Habit): HabitState{
         val doneDates = habit.doneDates ?: listOf()//это ок?
         val timeStart = habit.date
         val currentTime = doneDates.last().toLong()
@@ -46,7 +47,7 @@ class DoneDatesCheckUseCase @Inject constructor() {
                 doneCount++
         }
 
-        return doneCount
+        return HabitState(habit.type, habit.count, doneCount)
     }
 
     private val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())

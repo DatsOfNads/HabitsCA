@@ -4,10 +4,11 @@ import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import com.example.domain.model.FilterElement
 import com.example.domain.model.Habit
+import com.example.domain.model.HabitState
 import com.example.domain.model.Sort
+import com.example.domain.model.`object`.Event
 import com.example.domain.model.`object`.Frequency
 import com.example.domain.model.`object`.Type
-import com.example.domain.model.`object`.Type.GOOD
 import com.example.domain.usecase.DoneDatesCheckUseCase
 import com.example.domain.usecase.database.EditHabitUseCase
 import com.example.domain.usecase.database.SubscribeAllDataUseCase
@@ -29,6 +30,7 @@ class HomeFragmentModel constructor(
     private val badHabitsData = MutableLiveData<List<Habit>>()
     private val sortDirectionData = MutableLiveData<Boolean>()
     private val filterElementData = MutableLiveData<ArrayList<FilterElement>>()
+    private val habitStateData = MutableLiveData<Event<HabitState>>()
 
     private var sortDirection = true
     private var sortType = Sort.NONE
@@ -39,6 +41,7 @@ class HomeFragmentModel constructor(
     fun subscribeBadHabits() = badHabitsData as LiveData<List<Habit>>
     fun subscribeSortDirection() = sortDirectionData as LiveData<Boolean>
     fun subscribeFilterElement() = filterElementData as LiveData<ArrayList<FilterElement>>
+    fun subscribeHabitState() = habitStateData as LiveData<Event<HabitState>>
 
     private val observer = Observer<List<Habit>> {
         habits = checkSortDirection(it as ArrayList<Habit>)
@@ -107,43 +110,9 @@ class HomeFragmentModel constructor(
             habit.doneDates = habit.doneDates?.plus(doneDate)
             editHabitUseCase.execute(habit)
 
-            val doneCount = doneDatesCheckUseCase.execute(habit)
-            val count = habit.count
+            val habitState = doneDatesCheckUseCase.execute(habit)
 
-            System.err.println("Количество выполненных: $doneCount")
-
-            if (habit.type == GOOD) {
-                if (doneCount < count) {
-                    //то нужно ещё делать
-                    System.err.println("Делай ещё")
-                }
-
-                if (doneCount == count) {
-                    //значит всё выполнил
-                    System.err.println("миссия выполнена")
-                }
-
-                if (doneCount > count) {
-                    //ты великолепен
-                    System.err.println("палехчи, ковбой!")
-                }
-            } else {
-                if (doneCount < count) {
-                    //можно выполнить ещё несколько раз
-                    System.err.println("зис щит ты ещё можешь делать")
-                }
-
-                if (doneCount == count) {
-                    //всё хватит
-                    System.err.println("твой лимит исчерпан")
-                }
-
-                if (doneCount > count) {
-                    //прекрати немедленно
-                    System.err.println("прекрати!")
-                }
-            }
-
+            habitStateData.value = Event(habitState)
         }
     }
 
