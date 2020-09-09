@@ -7,6 +7,8 @@ import com.example.domain.model.Habit
 import com.example.domain.model.Sort
 import com.example.domain.model.`object`.Frequency
 import com.example.domain.model.`object`.Type
+import com.example.domain.model.`object`.Type.GOOD
+import com.example.domain.usecase.DoneDatesCheckUseCase
 import com.example.domain.usecase.database.EditHabitUseCase
 import com.example.domain.usecase.database.SubscribeAllDataUseCase
 import kotlinx.coroutines.launch
@@ -15,11 +17,12 @@ import kotlin.collections.ArrayList
 
 class HomeFragmentModel constructor(
     subscribeAllDataUseCase: SubscribeAllDataUseCase,
-    private val editHabitUseCase: EditHabitUseCase
-): ViewModel() {
+    private val editHabitUseCase: EditHabitUseCase,
+    private val doneDatesCheckUseCase: DoneDatesCheckUseCase
+) : ViewModel() {
 
     private var habits: ArrayList<Habit> = arrayListOf()
-    private var goodHabits:ArrayList<Habit> = arrayListOf()
+    private var goodHabits: ArrayList<Habit> = arrayListOf()
     private var badHabits: ArrayList<Habit> = arrayListOf()
 
     private val goodHabitsData = MutableLiveData<List<Habit>>()
@@ -37,8 +40,7 @@ class HomeFragmentModel constructor(
     fun subscribeSortDirection() = sortDirectionData as LiveData<Boolean>
     fun subscribeFilterElement() = filterElementData as LiveData<ArrayList<FilterElement>>
 
-    private val observer = Observer<List<Habit>>{
-        System.err.println("получили")
+    private val observer = Observer<List<Habit>> {
         habits = checkSortDirection(it as ArrayList<Habit>)
 
         val (goodHabits, badHabits) = splitHabits(habits)
@@ -54,9 +56,9 @@ class HomeFragmentModel constructor(
         subscribeAllDataUseCase.execute().asLiveData().observeForever(observer)
     }
 
-    fun setSortDirection(sortDirection: Boolean){
+    fun setSortDirection(sortDirection: Boolean) {
         //Если текущие значения не совпадают, переворачиваем список
-        if ((sortDirection && !this.sortDirection)||(!sortDirection && this.sortDirection)){
+        if ((sortDirection && !this.sortDirection) || (!sortDirection && this.sortDirection)) {
 
             this.sortDirection = sortDirection
             sortDirectionData.value = sortDirection
@@ -68,12 +70,12 @@ class HomeFragmentModel constructor(
             badHabitsData.value = badHabits
         }
 
-        if(searchedText != ""){
+        if (searchedText != "") {
             search(searchedText)
         }
     }
 
-    fun search(text: String){
+    fun search(text: String) {
 
         searchedText = text.toLowerCase(Locale.ROOT)
 
@@ -97,16 +99,55 @@ class HomeFragmentModel constructor(
         badHabitsData.value = searchedBadHabits as ArrayList<Habit>
     }
 
-    fun setDoneDate(habit: Habit){
+    fun setDoneDate(habit: Habit) {
 
         viewModelScope.launch {
             val doneDate = Calendar.getInstance().timeInMillis.toString()
+
             habit.doneDates = habit.doneDates?.plus(doneDate)
             editHabitUseCase.execute(habit)
+
+            val doneCount = doneDatesCheckUseCase.execute(habit)
+            val count = habit.count
+
+            System.err.println("Количество выполненных: $doneCount")
+
+            if (habit.type == GOOD) {
+                if (doneCount < count) {
+                    //то нужно ещё делать
+                    System.err.println("Делай ещё")
+                }
+
+                if (doneCount == count) {
+                    //значит всё выполнил
+                    System.err.println("миссия выполнена")
+                }
+
+                if (doneCount > count) {
+                    //ты великолепен
+                    System.err.println("палехчи, ковбой!")
+                }
+            } else {
+                if (doneCount < count) {
+                    //можно выполнить ещё несколько раз
+                    System.err.println("зис щит ты ещё можешь делать")
+                }
+
+                if (doneCount == count) {
+                    //всё хватит
+                    System.err.println("твой лимит исчерпан")
+                }
+
+                if (doneCount > count) {
+                    //прекрати немедленно
+                    System.err.println("прекрати!")
+                }
+            }
+
         }
     }
 
-    fun sortHabits(sort: Sort){
+    fun sortHabits(sort: Sort) {
 
         sortType = sort
 
@@ -118,7 +159,7 @@ class HomeFragmentModel constructor(
 
         addFilterElement(filterElement)
 
-        when(sort){
+        when (sort) {
             Sort.NONE -> {
                 val (goodHabits, badHabits) = splitHabits(habits as MutableList<Habit>)
                 setHabitsAfterSort(goodHabits.reversed(), badHabits.reversed())
@@ -128,12 +169,12 @@ class HomeFragmentModel constructor(
             Sort.BY_PERIOD -> sortByPeriod()
         }
 
-        if(searchedText != ""){
+        if (searchedText != "") {
             search(searchedText)
         }
     }
 
-    private fun sortByPriority(){
+    private fun sortByPriority() {
 
         val (goodHabits, badHabits) = splitHabits(habits)
 
@@ -148,12 +189,12 @@ class HomeFragmentModel constructor(
         setHabitsAfterSort(sortedGoodHabits, sortedBadHabits)
     }
 
-    private fun sortByNumberOfTimes(){
+    private fun sortByNumberOfTimes() {
 
         val (goodHabits, badHabits) = splitHabits(habits)
 
         val sortedGoodHabits = goodHabits.sortedBy {
-            when(it.frequency){
+            when (it.frequency) {
                 Frequency.A_DAY -> it.count * 365.0
                 Frequency.A_WEEK -> it.count * 52.134
                 Frequency.A_MONTH -> it.count * 12.0
@@ -164,7 +205,7 @@ class HomeFragmentModel constructor(
         }
 
         val sortedBadHabits = badHabits.sortedBy {
-            when(it.frequency){
+            when (it.frequency) {
                 Frequency.A_DAY -> it.count * 365.0
                 Frequency.A_WEEK -> it.count * 52.134
                 Frequency.A_MONTH -> it.count * 12.0
@@ -177,7 +218,7 @@ class HomeFragmentModel constructor(
         setHabitsAfterSort(sortedGoodHabits, sortedBadHabits)
     }
 
-    private fun sortByPeriod(){
+    private fun sortByPeriod() {
 
         val (goodHabits, badHabits) = splitHabits(habits)
 
@@ -192,8 +233,8 @@ class HomeFragmentModel constructor(
         setHabitsAfterSort(sortedGoodHabits, sortedBadHabits)
     }
 
-    private fun setHabitsAfterSort(sortedGoodHabits:List<Habit>, sortedBadHabits: List<Habit>){
-        if(sortDirection){
+    private fun setHabitsAfterSort(sortedGoodHabits: List<Habit>, sortedBadHabits: List<Habit>) {
+        if (sortDirection) {
 
             val goodHabits = ArrayList<Habit>(sortedGoodHabits)
             goodHabits.reverse()
@@ -206,7 +247,7 @@ class HomeFragmentModel constructor(
 
             this.badHabits = badHabits
             badHabitsData.value = badHabits
-        } else{
+        } else {
             val goodHabits = ArrayList<Habit>(sortedGoodHabits)
 
             this.goodHabits = goodHabits
@@ -219,9 +260,9 @@ class HomeFragmentModel constructor(
         }
     }
 
-    private fun addFilterElement(filterElement: FilterElement){
+    private fun addFilterElement(filterElement: FilterElement) {
 
-        if(filterElement.type == FilterElement.Type.SEARCH){
+        if (filterElement.type == FilterElement.Type.SEARCH) {
 
             val searchFilters = (filterElements as List<FilterElement>).filter {
                 it.type == FilterElement.Type.SEARCH
@@ -229,14 +270,14 @@ class HomeFragmentModel constructor(
 
             filterElements.removeAll(searchFilters)
 
-            if(filterElement.title != ""){
+            if (filterElement.title != "") {
                 filterElements.add(filterElement)
                 filterElementData.value = filterElements
-            } else{
+            } else {
                 filterElementData.value = filterElements
             }
 
-        } else{
+        } else {
 
             val sortFilters = (filterElements as List<FilterElement>).filter {
                 it.type == FilterElement.Type.SORT
@@ -244,29 +285,30 @@ class HomeFragmentModel constructor(
 
             filterElements.removeAll(sortFilters)
 
-            if(filterElement.sort != Sort.NONE){
+            if (filterElement.sort != Sort.NONE) {
                 filterElements.add(filterElement)
                 filterElementData.value = filterElements
-            } else{
+            } else {
                 filterElementData.value = filterElements
             }
         }
     }
 
-    private fun checkSortDirection(habits: ArrayList<Habit>): ArrayList<Habit>{
-        return if(this.sortDirection){
+    private fun checkSortDirection(habits: ArrayList<Habit>): ArrayList<Habit> {
+        return if (this.sortDirection) {
             habits
-        } else{
+        } else {
             val reversedHabits = habits.reversed()
             reversedHabits as ArrayList<Habit>
         }
     }
 
-    private fun splitHabits(habits: List<Habit>): Pair<List<Habit>, List<Habit>> = habits.partition {
-        when(it.type){
-            Type.GOOD -> true
-            Type.BAD -> false
-            else -> true
+    private fun splitHabits(habits: List<Habit>): Pair<List<Habit>, List<Habit>> =
+        habits.partition {
+            when (it.type) {
+                Type.GOOD -> true
+                Type.BAD -> false
+                else -> true
+            }
         }
-    }
 }

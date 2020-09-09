@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">HabitsCA</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <string name="priority_low">Low</string>
     <string name="priority_medium">Medium</string>
@@ -17,20 +17,20 @@
     <string name="sort_by_period">By period</string>
 
     <plurals name="plurals_done_dates">
-        <item quantity="zero">Не выполнено</item>
-        <item quantity="one">Выполнено %d раз</item>
-        <item quantity="two">Выполнено %d раза</item>
-        <item quantity="few">Выполнено %d раза</item>
-        <item quantity="many">Выполнено %d раз</item>
-        <item quantity="other">Выполнено %d раз</item>
+        <item quantity="zero">Completed %d times</item>
+        <item quantity="one">Completed %d times</item>
+        <item quantity="two">Completed %d times</item>
+        <item quantity="few">Completed %d times</item>
+        <item quantity="many">Completed %d times</item>
+        <item quantity="other">Completed %d times</item>
     </plurals>
 
     <plurals name="plurals_count">
-        <item quantity="zero">%d раз</item>
-        <item quantity="one">%d раз</item>
-        <item quantity="two">%d раза</item>
-        <item quantity="few">%d раза</item>
-        <item quantity="many">%d раз</item>
-        <item quantity="other">%d раз</item>
+        <item quantity="zero">%d times</item>
+        <item quantity="one">%d times</item>
+        <item quantity="two">%d times</item>
+        <item quantity="few">%d times</item>
+        <item quantity="many">%d times</item>
+        <item quantity="other">%d times</item>
     </plurals>
 </resources>

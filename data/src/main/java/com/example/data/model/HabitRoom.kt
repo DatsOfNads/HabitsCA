@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.example.domain.model.Habit
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -25,15 +24,19 @@ data class HabitRoom(
     var doneDates: List<String>?
 ): Serializable{
 
-    class HabitsConverter {
+    class HabitsConverter{
         @TypeConverter
         fun fromHabits(habits: List<String>): String {
-            return habits.joinToString(",")
+            return habits.joinToString()
         }
 
         @TypeConverter
         fun toHabits(data: String): List<String> {
-            return data.split(",")
+            return if(data != ""){
+                data.split(", ").map { it }.toMutableList()
+            }else{
+                mutableListOf()
+            }
         }
     }
 }

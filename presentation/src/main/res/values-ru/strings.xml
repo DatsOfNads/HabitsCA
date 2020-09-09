@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HabitsCA</string>
+    <string name="priority_low">Низкий</string>
+    <string name="priority_medium">Средний</string>
+    <string name="priority_high">Высокий</string>
+    <string name="period_a_day">В день</string>
+    <string name="period_a_week">В неделю</string>
+    <string name="period_a_month">В месяц</string>
+    <string name="period_a_year">В год</string>
+    <string name="sort_none">Без сортировки</string>
+    <string name="sort_by_priority">По приоритету</string>
+    <string name="sort_by_number_of_times">По количеству раз</string>
+    <string name="sort_by_period">По периоду</string>
+
+    <plurals name="plurals_done_dates">
+        <item quantity="one">Выполнено %d раз</item>
+        <item quantity="few">Выполнено %d раза</item>
+        <item quantity="many">Выполнено %d раз</item>
+        <item quantity="other">Выполнено %d раз</item>
+    </plurals>
+
+    <plurals name="plurals_count">
+        <item quantity="one">%d раз</item>
+        <item quantity="few">%d раза</item>
+        <item quantity="many">%d раз</item>
+        <item quantity="other">%d раз</item>
+    </plurals>
+</resources>

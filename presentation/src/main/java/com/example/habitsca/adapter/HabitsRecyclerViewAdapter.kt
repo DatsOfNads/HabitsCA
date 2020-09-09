@@ -2,6 +2,7 @@ package com.example.habitsca.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +38,7 @@ class HabitsRecyclerViewAdapter(
 
         holder.bind(habit)
 
-        val doneDatesCount = habit.doneDates?.size?.minus(1) ?: 0
+        val doneDatesCount = habit.doneDates?.size ?: 0
         val doneDatesPlural = context.resources.getQuantityString(R.plurals.plurals_done_dates, doneDatesCount, doneDatesCount)
 
         holder.chipDoneDates.text = doneDatesPlural
