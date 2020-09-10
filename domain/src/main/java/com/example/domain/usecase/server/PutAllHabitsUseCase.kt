@@ -11,11 +11,17 @@ class PutAllHabitsUseCase @Inject constructor(
     suspend fun execute(newHabits: List<Habit>, oldHabits: List<Habit>): Boolean{
 
         oldHabits.forEach {
-            serverRepository.deleteHabit(it.uid!!) ?: return false
+            val response = serverRepository.deleteHabit(it.uid!!)
+
+            if(response.second != 200)
+                return false
         }
 
         newHabits.forEach {
-            serverRepository.putHabit(it)  ?: return false
+            val response = serverRepository.putHabit(it)
+
+            if(response.second != 200)
+                return false
         }
 
         return true

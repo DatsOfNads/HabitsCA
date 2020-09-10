@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class PutHabitUseCase @Inject constructor(private val serverRepository: ServerRepository) {
 
-    suspend fun execute(habit: Habit): String?{
+    suspend fun execute(habit: Habit): Pair<String?, Int>{
         return serverRepository.putHabit(habit)
     }
 }

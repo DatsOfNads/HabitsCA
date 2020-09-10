@@ -10,38 +10,44 @@ class ServerRepositoryImpl(
     private val habitsMapper: HabitsMapper
 ) : ServerRepository {
 
-    override suspend fun getAllHabits(): List<Habit>? {
+    override suspend fun getAllHabits(): Pair<List<Habit>?, Int> {
 
         val response = serverApi.getHabits()
 
-        return if (response.isSuccessful)
-            response.body()?.map {
+        if(response.isSuccessful){
+            val mappedHabits =  response.body()?.map {
                 habitsMapper.mapServerHabitToHabit(it)
             }
-        else
-            null
+
+            return Pair(mappedHabits, response.code())
+        }
+
+        return Pair(null, response.code())
     }
 
-    override suspend fun putHabit(habit: Habit): String? {
+    override suspend fun putHabit(habit: Habit): Pair<String?, Int> {
         habit.uid = null
 
         val response = serverApi.putHabits(habit)
 
-        return if (response.isSuccessful)
-            response.body()?.uid
-        else
-            null
+        if (response.isSuccessful){
+            val uid = response.body()?.uid
+            return Pair(uid, response.code())
+        }
+
+        return Pair(null, response.code())
     }
 
-    override suspend fun deleteHabit(uid: String): Unit? {
+    override suspend fun deleteHabit(uid: String): Pair<Unit?, Int> {
         val hashMap = HashMap<String, String>()
         hashMap["uid"] = uid
 
         val response = serverApi.deleteHabit(uid)
 
-        return if (response.isSuccessful)
-            response.body()
-        else
-            null
+        if (response.isSuccessful){
+            return Pair(response.body(), response.code())
+        }
+
+        return Pair(null, response.code())
     }
 }

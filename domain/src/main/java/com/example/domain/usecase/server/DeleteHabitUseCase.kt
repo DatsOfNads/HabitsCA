@@ -7,7 +7,7 @@ class DeleteHabitUseCase @Inject constructor(
     private val serverRepository: ServerRepository
 ) {
 
-    suspend fun execute(uid: String): Unit?{
+    suspend fun execute(uid: String): Pair<Unit?, Int>{
         return serverRepository.deleteHabit(uid)
     }
 }

@@ -32,10 +32,10 @@ class SyncFragmentModel @Inject constructor(
         viewModelScope.launch {
             loadingStateData.value = LoadingState.LOADING
 
-            val habits = getAllFromServer.execute()
+            val response = getAllFromServer.execute()
 
-            if(habits != null){
-                updateAllDataUseCase.execute(habits)
+            if(response.second == 200){
+                updateAllDataUseCase.execute(response.first!!)
                 loadingStateData.value = LoadingState.DONE
             } else{
                 loadingStateData.value = LoadingState.ERROR
@@ -47,11 +47,13 @@ class SyncFragmentModel @Inject constructor(
         viewModelScope.launch {
             loadingStateData.value = LoadingState.LOADING
 
-            val oldHabits = getAllFromServer.execute()
+            val response = getAllFromServer.execute()
 
-            if(oldHabits!= null){
+            System.err.println("делаем пут вот че ${response.second}")
+
+            if(response.second == 200){
                 val newHabits = getAllFromDatabase.execute()
-                val isSuccessful = putAllHabitsUseCase.execute(newHabits, oldHabits)
+                val isSuccessful = putAllHabitsUseCase.execute(newHabits, response.first!!)
 
                 if(isSuccessful){
                     loadingStateData.value = LoadingState.DONE

@@ -8,7 +8,7 @@ class GetAllHabitsUseCase @Inject constructor(
     private val serverRepository: ServerRepository
 ) {
 
-    suspend fun execute(): List<Habit>?{
+    suspend fun execute(): Pair<List<Habit>?, Int>{
         return serverRepository.getAllHabits()
     }
 }

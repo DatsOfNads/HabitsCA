@@ -28,19 +28,22 @@ class SyncFragment: Fragment(R.layout.fragment_sync) {
 
         model.subscribeLoadingState().observe(viewLifecycleOwner,{
             if (it == LoadingState.LOADING) {
+                Toast.makeText(context, "Готово!", Toast.LENGTH_SHORT).show()
                 progressBar.visibility = View.VISIBLE
                 buttonGet.isEnabled = false
                 buttonSet.isEnabled = false
             }
 
             if (it == LoadingState.DONE) {
-                progressBar.visibility = View.GONE
+                Toast.makeText(context, "Готово!", Toast.LENGTH_SHORT).show()
+                progressBar.visibility = View.INVISIBLE
                 buttonGet.isEnabled = true
                 buttonSet.isEnabled = true
             }
 
             if (it == LoadingState.ERROR) {
                 Toast.makeText(context, "Что-то пошло не так(", Toast.LENGTH_SHORT).show()
+                progressBar.visibility = View.INVISIBLE
                 buttonGet.isEnabled = true
                 buttonSet.isEnabled = true
             }
