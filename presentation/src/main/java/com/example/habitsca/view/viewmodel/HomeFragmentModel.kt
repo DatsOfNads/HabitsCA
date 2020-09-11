@@ -83,12 +83,21 @@ class HomeFragmentModel constructor(
         searchedText = text.toLowerCase(Locale.ROOT)
 
         val filterElement = FilterElement(
-            text,
-            FilterElement.Type.SEARCH,
-            Sort.NONE
+            FilterElement.Type.SEARCH
         )
 
-        addFilterElement(filterElement)
+        val searchFilters = (filterElements as List<FilterElement>).filter {
+            it.type == FilterElement.Type.SEARCH
+        }
+
+        filterElements.removeAll(searchFilters)
+
+        if (text == ""){
+            filterElementData.value = filterElements
+        } else {
+            filterElements.add(filterElement)
+            filterElementData.value = filterElements
+        }
 
         val searchedGoodHabits = goodHabits.filter {
             it.title.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))
@@ -121,12 +130,21 @@ class HomeFragmentModel constructor(
         sortType = sort
 
         val filterElement = FilterElement(
-            null,
             FilterElement.Type.SORT,
-            sort
         )
 
-        addFilterElement(filterElement)
+        val filters = (filterElements as List<FilterElement>).filter {
+            it.type == FilterElement.Type.SORT
+        }
+
+        filterElements.removeAll(filters)
+
+        if (sort != Sort.NONE) {
+            filterElements.add(filterElement)
+            filterElementData.value = filterElements
+        } else {
+            filterElementData.value = filterElements
+        }
 
         when (sort) {
             Sort.NONE -> {
@@ -226,40 +244,6 @@ class HomeFragmentModel constructor(
 
             this.badHabits = badHabits
             badHabitsData.value = badHabits
-        }
-    }
-
-    private fun addFilterElement(filterElement: FilterElement) {
-
-        if (filterElement.type == FilterElement.Type.SEARCH) {
-
-            val searchFilters = (filterElements as List<FilterElement>).filter {
-                it.type == FilterElement.Type.SEARCH
-            }
-
-            filterElements.removeAll(searchFilters)
-
-            if (filterElement.title != "") {
-                filterElements.add(filterElement)
-                filterElementData.value = filterElements
-            } else {
-                filterElementData.value = filterElements
-            }
-
-        } else {
-
-            val sortFilters = (filterElements as List<FilterElement>).filter {
-                it.type == FilterElement.Type.SORT
-            }
-
-            filterElements.removeAll(sortFilters)
-
-            if (filterElement.sort != Sort.NONE) {
-                filterElements.add(filterElement)
-                filterElementData.value = filterElements
-            } else {
-                filterElementData.value = filterElements
-            }
         }
     }
 
