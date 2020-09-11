@@ -136,6 +136,14 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
                 TransitionManager.beginDelayedTransition(bottomSheet, autoTransition)
                 chipFilter.visibility = View.GONE
             }
+
+            if((isSearch || isSort) && chipGroup.visibility == View.GONE){
+                chipGroup.visibility = View.VISIBLE
+            }
+
+            if(!isSearch && !isSort){
+                chipGroup.visibility = View.GONE
+            }
         })
     }
 
