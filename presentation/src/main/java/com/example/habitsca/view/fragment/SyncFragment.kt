@@ -28,7 +28,6 @@ class SyncFragment: Fragment(R.layout.fragment_sync) {
 
         model.subscribeLoadingState().observe(viewLifecycleOwner,{
             if (it == LoadingState.LOADING) {
-                Toast.makeText(context, "Готово!", Toast.LENGTH_SHORT).show()
                 progressBar.visibility = View.VISIBLE
                 buttonGet.isEnabled = false
                 buttonSet.isEnabled = false

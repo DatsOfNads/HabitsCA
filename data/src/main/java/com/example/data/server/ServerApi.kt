@@ -1,6 +1,8 @@
 package com.example.data.server
 
+import com.example.data.model.HabitServer
 import com.example.data.response.ResponsePut
+import com.example.domain.model.HabitDone
 import com.example.domain.model.Habit
 import retrofit2.Response
 import javax.inject.Inject
@@ -13,12 +15,16 @@ class ServerApi @Inject constructor(private val serverEndpoint: ServerEndpoint) 
         const val CONTENT_TYPE = "application/json"
     }
 
-    suspend fun getHabits(): Response<List<Habit>>{
+    suspend fun getHabits(): Response<List<HabitServer>>{
         return serverEndpoint.getHabits(ACCEPT, AUTH_KEY)
     }
 
     suspend fun putHabits(habit: Habit): Response<ResponsePut>{
         return  serverEndpoint.putHabit(ACCEPT, AUTH_KEY, CONTENT_TYPE, habit)
+    }
+
+    suspend fun postHabitDoneDate(habitDone: HabitDone): Response<Unit>{
+        return  serverEndpoint.postHabitDoneDate(ACCEPT, AUTH_KEY, CONTENT_TYPE, habitDone)
     }
 
     suspend fun deleteHabit(uid: String): Response<Unit>{

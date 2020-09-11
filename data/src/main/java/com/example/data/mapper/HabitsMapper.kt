@@ -1,14 +1,15 @@
 package com.example.data.mapper
 
 import com.example.data.model.HabitRoom
+import com.example.data.model.HabitServer
 import com.example.domain.model.Habit
 import javax.inject.Inject
 
 class HabitsMapper @Inject constructor() {
 
-    fun mapServerHabitToHabit(it: Habit): Habit{
+    fun mapServerHabitToHabit(it: HabitServer): Habit{
 
-        val doneDates = it.doneDates ?: listOf()
+        val doneDates = it.done_dates
 
         return Habit(
                 uid = it.uid,

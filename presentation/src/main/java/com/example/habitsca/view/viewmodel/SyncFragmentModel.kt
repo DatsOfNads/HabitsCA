@@ -49,8 +49,6 @@ class SyncFragmentModel @Inject constructor(
 
             val response = getAllFromServer.execute()
 
-            System.err.println("делаем пут вот че ${response.second}")
-
             if(response.second == 200){
                 val newHabits = getAllFromDatabase.execute()
                 val isSuccessful = putAllHabitsUseCase.execute(newHabits, response.first!!)

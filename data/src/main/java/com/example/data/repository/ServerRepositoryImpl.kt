@@ -2,6 +2,7 @@ package com.example.data.repository
 
 import com.example.data.server.ServerApi
 import com.example.data.mapper.HabitsMapper
+import com.example.domain.model.HabitDone
 import com.example.domain.model.Habit
 import com.example.domain.repository.ServerRepository
 
@@ -33,6 +34,16 @@ class ServerRepositoryImpl(
         if (response.isSuccessful){
             val uid = response.body()?.uid
             return Pair(uid, response.code())
+        }
+
+        return Pair(null, response.code())
+    }
+
+    override suspend fun postHabitDoneDate(habitDone: HabitDone): Pair<Unit?, Int> {
+        val response = serverApi.postHabitDoneDate(habitDone)
+
+        if(response.isSuccessful){
+            return Pair(response.body(), response.code())
         }
 
         return Pair(null, response.code())

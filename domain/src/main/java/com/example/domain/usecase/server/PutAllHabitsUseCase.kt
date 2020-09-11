@@ -1,5 +1,6 @@
 package com.example.domain.usecase.server
 
+import com.example.domain.model.HabitDone
 import com.example.domain.model.Habit
 import com.example.domain.repository.ServerRepository
 import javax.inject.Inject
@@ -17,11 +18,20 @@ class PutAllHabitsUseCase @Inject constructor(
                 return false
         }
 
-        newHabits.forEach {
-            val response = serverRepository.putHabit(it)
+        newHabits.forEach {habit ->
+            val responsePut = serverRepository.putHabit(habit)
 
-            if(response.second != 200)
+            if(responsePut.second != 200)
                 return false
+
+            val uid = responsePut.first!!
+
+            habit.doneDates?.forEach { doneDate ->
+                val responsePost = serverRepository.postHabitDoneDate(HabitDone(doneDate.toLong(), uid))
+
+                if(responsePost.second != 200)
+                    return false
+            }
         }
 
         return true
