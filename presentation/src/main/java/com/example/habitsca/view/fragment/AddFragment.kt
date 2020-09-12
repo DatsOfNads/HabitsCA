@@ -62,7 +62,7 @@ class AddFragment: AddAndEditFragment() {
             else -> null
         }
 
-        val frequency = when (textInputEditTextPeriod.text.toString()){
+        val frequency = when (textInputEditTextFrequency.text.toString()){
             resources.getString(R.string.period_a_day) -> Frequency.A_DAY
             resources.getString(R.string.period_a_week) -> Frequency.A_WEEK
             resources.getString(R.string.period_a_month) -> Frequency.A_MONTH
@@ -77,32 +77,32 @@ class AddFragment: AddAndEditFragment() {
 
         val title = textInputEditTextTitle.text.toString()
         val description = textInputEditTextDescription.text.toString()
-        val count = textInputEditTextNumberOfTimes.text.toString()
+        val count = textInputEditTextCount.text.toString()
 
         var hasErrors = false
 
         if(title.isEmpty()){
-            textInputLayoutTitle.error = "Введите название привычки"
+            textInputLayoutTitle.error = getString(R.string.enter_the_name_of_the_habit)
             hasErrors = true
         }
 
         if(description.isEmpty()){
-            textInputLayoutDescription.error = "Введите описание"
+            textInputLayoutDescription.error = getString(R.string.enter_a_description)
             hasErrors = true
         }
 
         if(count.isEmpty()){
-            textInputLayoutNumberOfTimes.error = "Введите количество раз"
+            textInputLayoutCount.error = getString(R.string.enter_the_count)
             hasErrors = true
         }
 
         if (priority == null){
-            textInputLayoutPriority.error = "Выберите вариант из списка"
+            textInputLayoutPriority.error = getString(R.string.select_an_option_from_the_list)
             hasErrors = true
         }
 
         if (frequency == null){
-            textInputLayoutPeriod.error = "Выберите вариант из списка"
+            textInputLayoutFrequency.error = getString(R.string.select_an_option_from_the_list)
             hasErrors = true
         }
 

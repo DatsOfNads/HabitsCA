@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">HabitsCA</string>
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="app_name">Habits</string>
 
     <string name="priority_low">Low</string>
     <string name="priority_medium">Medium</string>
@@ -15,6 +14,60 @@
     <string name="sort_by_priority">By priority</string>
     <string name="sort_by_number_of_times">By number of times</string>
     <string name="sort_by_period">By period</string>
+    <string name="good_habit">Good</string>
+    <string name="bad_habit">Bad</string>
+
+    <string name="priority_low_full">Priority low</string>
+    <string name="priority_medium_full">Priority medium</string>
+    <string name="priority_high_full">Priority high</string>
+    <string name="have_not_done">Haven\'t done</string>
+    <string name="not_all_fields_are_filled">Not all fields are filled!</string>
+    <string name="enter_the_name_of_the_habit">Enter the name of the habit</string>
+    <string name="enter_a_description">Enter a description</string>
+    <string name="enter_the_count">Enter the count</string>
+    <string name="select_an_option_from_the_list">Select an option from the list</string>
+    <string name="delete_habit_question">Delete this habit?</string>
+    <string name="this_action_cannot_be_undone">This action cannot be undone</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="good_habits">Good</string>
+    <string name="bad_habits">Bad</string>
+    <string name="it_is_worth_performing">It is worth performing</string>
+    <string name="more_times" translatable="false">more times</string>
+    <string name="you_completed_the_plan">You completed the plan!</string>
+    <string name="you_can_do_this">You can do this</string>
+    <string name="you_can_not_do_this_anymore">You can\'t do this anymore</string>
+    <string name="stop_doing_this">Stop doing this!</string>
+    <string name="done_message">Done!</string>
+    <string name="something_went_wrong">Something went wrong(</string>
+    <string name="there_is_no_internet_connection">There is no Internet connection</string>
+    <string name="img_source" translatable="false">https://i.ibb.co/qD7LX3j/habits-logo.png</string>
+    <string name="search_and_sort">Search and sort</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
+    <string name="the_best_way_to_control_your_habits" translatable="false">The best way to control your habits</string>
+    <string name="developer_name">Developed By Nikita Soznik</string>
+    <string name="dev_github" translatable="false">GitHub - @DatsOfNads</string>
+    <string name="dev_email">Email - nsoznik@gmail.com</string>
+    <string name="dev_telegram" translatable="false">Telegram - @ilusha13let</string>
+    <string name="for_doubletapp">For Doubletapp</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="priority">Priority</string>
+    <string name="count">Count</string>
+    <string name="frequency">Frequency</string>
+    <string name="select_good_habit">Good habit</string>
+    <string name="select_bad_habit">Bad habit</string>
+    <string name="sync_your_data_with_the_server_so_that_you_don_t_lose_it">Sync your data with the server so that you don\'t lose it</string>
+    <string name="recover_data">Recover data</string>
+    <string name="transmit_data">Transmit data</string>
+    <string name="add_done_date" translatable="false">+1</string>
+    <string name="habits_menu">Habits</string>
+    <string name="synchronization_menu">Synchronization</string>
+    <string name="about_menu">About</string>
+    <string name="create_a_habit">Create a habit</string>
+    <string name="edit_a_habit">Edit a habit</string>
 
     <plurals name="plurals_done_dates">
         <item quantity="zero">Completed %d times</item>

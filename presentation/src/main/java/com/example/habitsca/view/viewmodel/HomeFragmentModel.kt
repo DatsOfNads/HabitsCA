@@ -43,6 +43,8 @@ class HomeFragmentModel constructor(
     fun subscribeFilterElement() = filterElementData as LiveData<ArrayList<FilterElement>>
     fun subscribeHabitState() = habitStateData as LiveData<Event<HabitState>>
 
+    private val subscribeAllData: LiveData<List<Habit>>
+
     private val observer = Observer<List<Habit>> {
         habits = checkSortDirection(it as ArrayList<Habit>)
 
@@ -56,7 +58,14 @@ class HomeFragmentModel constructor(
 
     init {
         sortDirectionData.value = true
-        subscribeAllDataUseCase.execute().asLiveData().observeForever(observer)
+        subscribeAllData = subscribeAllDataUseCase.execute().asLiveData()
+        subscribeAllData.observeForever(observer)
+    }
+
+    fun removeObserver(){
+        subscribeAllData.removeObserver {
+            observer
+        }
     }
 
     fun setSortDirection(sortDirection: Boolean) {

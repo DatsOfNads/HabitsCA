@@ -24,6 +24,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home_content.*
+import java.util.*
 import javax.inject.Inject
 
 
@@ -56,14 +57,19 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         initButtons()
     }
 
+    override fun onDestroy() {
+        model.removeObserver()
+        super.onDestroy()
+    }
+
     private fun initViewPager(){
 
         viewPager.adapter = viewPagerAdapter
 
         TabLayoutMediator(tabLayout, viewPager){ tab, position ->
             when(position){
-                0 -> tab.text = "Хорошие"
-                else -> tab.text = "Плохие"
+                0 -> tab.text = getString(R.string.good_habits)
+                else -> tab.text = getString(R.string.bad_habits)
             }
         }.attach()
     }
@@ -105,15 +111,15 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             autoCompleteTextViewSort.setText(resources.getText(R.string.sort_none))
         }
 
-        model.subscribeFilterElement().observe(viewLifecycleOwner, {filterElements ->
+        model.subscribeFilterElement().observe(viewLifecycleOwner, { filterElements ->
 
             var isSearch = false
             var isSort = false
 
             filterElements.forEach {
-                if(it.type == FilterElement.Type.SEARCH){
+                if (it.type == FilterElement.Type.SEARCH) {
                     isSearch = true
-                }else{
+                } else {
                     isSort = true
                 }
             }
@@ -121,27 +127,27 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             val autoTransition = android.transition.AutoTransition()
             autoTransition.duration = 200
 
-            if(isSearch){
+            if (isSearch) {
                 TransitionManager.beginDelayedTransition(bottomSheet, autoTransition)
                 chipSearch.visibility = View.VISIBLE
-            } else{
+            } else {
                 TransitionManager.beginDelayedTransition(bottomSheet, autoTransition)
                 chipSearch.visibility = View.GONE
             }
 
-            if(isSort){
+            if (isSort) {
                 TransitionManager.beginDelayedTransition(bottomSheet, autoTransition)
                 chipFilter.visibility = View.VISIBLE
-            }else{
+            } else {
                 TransitionManager.beginDelayedTransition(bottomSheet, autoTransition)
                 chipFilter.visibility = View.GONE
             }
 
-            if((isSearch || isSort) && chipGroup.visibility == View.GONE){
+            if ((isSearch || isSort) && chipGroup.visibility == View.GONE) {
                 chipGroup.visibility = View.VISIBLE
             }
 
-            if(!isSearch && !isSort){
+            if (!isSearch && !isSort) {
                 chipGroup.visibility = View.GONE
             }
         })
@@ -230,68 +236,108 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             model.setSortDirection(false)
         }
 
-        model.subscribeHabitState().observe(viewLifecycleOwner, {event ->
+        model.subscribeHabitState().observe(viewLifecycleOwner, { event ->
 
             event.getContentIfNotHandled()?.let { habitState ->
                 val type = habitState.type
                 val count = habitState.count
                 val doneCount = habitState.doneCount
 
-                System.err.println("Количество выполненных: $doneCount")
-
                 if (type == Type.GOOD) {
                     if (doneCount < count) {
-                        val deferenceBetweenValuesPlural = resources.getQuantityString(
-                            R.plurals.plurals_count,
-                            count - doneCount,
-                            count - doneCount
-                        )
 
-                        Toast.makeText(
-                            requireContext(),
-                            "Стоит выполнить ещё $deferenceBetweenValuesPlural",
-                            Toast.LENGTH_SHORT).show()
+                        val currentLocate = resources.configuration.locales.get(0)
+
+                        if (currentLocate.country == "RU") {
+                            val deferenceBetweenValuesPlural = resources.getQuantityString(
+                                R.plurals.plurals_count,
+                                count - doneCount,
+                                count - doneCount
+                            )
+
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.it_is_worth_performing)
+                                        + " "
+                                        + deferenceBetweenValuesPlural,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            val deferenceBetweenValues = count - doneCount
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.it_is_worth_performing)
+                                        + " "
+                                        + deferenceBetweenValues
+                                        + " "
+                                        + getString(R.string.more_times),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
 
                     if (doneCount == count) {
                         Toast.makeText(
                             requireContext(),
-                            "Ты выполнил план!",
-                            Toast.LENGTH_SHORT).show()
+                            getString(R.string.you_completed_the_plan),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                     if (doneCount > count) {
                         Toast.makeText(
                             requireContext(),
                             "You are breathtaking!",
-                            Toast.LENGTH_SHORT).show()
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 } else {
                     if (doneCount < count) {
-                        val deferenceBetweenValuesPlural = resources.getQuantityString(
-                            R.plurals.plurals_count,
-                            count - doneCount,
-                            count - doneCount
-                        )
 
-                        Toast.makeText(
-                            requireContext(),
-                            "Можете выполнить ещё $deferenceBetweenValuesPlural",
-                            Toast.LENGTH_SHORT).show()
+                        val currentLocate = resources.configuration.locales.get(0)
+
+                        if (currentLocate.country == "RU") {
+                            val deferenceBetweenValuesPlural = resources.getQuantityString(
+                                R.plurals.plurals_count,
+                                count - doneCount,
+                                count - doneCount
+                            )
+
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.you_can_do_this)
+                                        + " "
+                                        + deferenceBetweenValuesPlural,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            val deferenceBetweenValues = count - doneCount
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.you_can_do_this)
+                                        + " "
+                                        + deferenceBetweenValues
+                                        + " "
+                                        + getString(R.string.more_times),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
 
                     if (doneCount == count) {
                         Toast.makeText(
                             requireContext(),
-                            "Больше нельзя этого делать",
-                            Toast.LENGTH_SHORT).show()
+                            getString(R.string.you_can_not_do_this_anymore),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                     if (doneCount > count) {
                         Toast.makeText(
                             requireContext(),
-                            "Хватит это делать!",
-                            Toast.LENGTH_SHORT).show()
+                            getString(R.string.stop_doing_this),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

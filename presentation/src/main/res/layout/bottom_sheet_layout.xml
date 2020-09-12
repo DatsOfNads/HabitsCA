@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/bottomSheet"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,14 +21,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewAppName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/roboto"
-            android:text="Поиск и сортировка"
+            android:text="@string/search_and_sort"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
             android:clickable="false"
             android:visibility="gone"
             android:fontFamily="@font/roboto"
-            android:text="Поиск"
+            android:text="@string/search"
             app:chipBackgroundColor="@color/greyColorLight"
             app:rippleColor="@null" />
 
@@ -68,36 +68,36 @@
             android:checkable="false"
             android:clickable="false"
             android:fontFamily="@font/roboto"
-            android:text="Сортировка"
+            android:text="@string/sort"
             android:visibility="gone"
             app:chipBackgroundColor="@color/greyColorLight"
             app:rippleColor="@null" />
     </com.google.android.material.chip.ChipGroup>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+        android:id="@+id/textInputLayoutSearch"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_goneMarginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chipGroup">
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+        app:layout_goneMarginTop="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/icon_search_24dp"
-            android:hint="Поиск"
+            android:hint="@string/search"
             android:inputType="textCapSentences" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/textInputLayoutFilter"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -108,14 +108,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageButtonUp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSearch">
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextViewSort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/icon_sort_24dp"
-            android:hint="Сортировка">
+            android:hint="@string/sort">
 
         </AutoCompleteTextView>
     </com.google.android.material.textfield.TextInputLayout>
@@ -126,9 +126,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="?android:selectableItemBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutFilter"
         app:layout_constraintEnd_toStartOf="@+id/imageButtonDown"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayoutFilter"
         app:srcCompat="@drawable/icon_arrow_upward_36dp" />
 
     <ImageButton

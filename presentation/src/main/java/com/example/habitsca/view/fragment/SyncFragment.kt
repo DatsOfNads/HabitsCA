@@ -34,14 +34,14 @@ class SyncFragment: Fragment(R.layout.fragment_sync) {
             }
 
             if (it == LoadingState.DONE) {
-                Toast.makeText(context, "Готово!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.done_message), Toast.LENGTH_SHORT).show()
                 progressBar.visibility = View.INVISIBLE
                 buttonGet.isEnabled = true
                 buttonSet.isEnabled = true
             }
 
             if (it == LoadingState.ERROR) {
-                Toast.makeText(context, "Что-то пошло не так(", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
                 progressBar.visibility = View.INVISIBLE
                 buttonGet.isEnabled = true
                 buttonSet.isEnabled = true
@@ -52,14 +52,14 @@ class SyncFragment: Fragment(R.layout.fragment_sync) {
             if(isOnline())
                 model.getAllData()
             else
-                Toast.makeText(context, "Отсутствует интернет-подключение", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.there_is_no_internet_connection), Toast.LENGTH_SHORT).show()
         }
 
         buttonSet.setOnClickListener {
             if(isOnline())
                 model.setAllData()
             else
-                Toast.makeText(context, "Отсутствует интернет-подключение", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.there_is_no_internet_connection), Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -58,7 +58,7 @@ abstract class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), Dat
         )
 
         textInputEditTextPriority.setAdapter(adapterPriority)
-        textInputEditTextPeriod.setAdapter(adapterPeriod)
+        textInputEditTextFrequency.setAdapter(adapterPeriod)
 
         watchErrors()
     }
@@ -118,7 +118,7 @@ abstract class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), Dat
 
         })
 
-        textInputEditTextNumberOfTimes.addTextChangedListener(object : TextWatcher {
+        textInputEditTextCount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
 
             }
@@ -129,14 +129,14 @@ abstract class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), Dat
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0?.isNotEmpty() == true) {
-                    textInputLayoutNumberOfTimes.error =
+                    textInputLayoutCount.error =
                         EMPTY_STRING
                 }
             }
 
         })
 
-        textInputEditTextPeriod.addTextChangedListener(object : TextWatcher {
+        textInputEditTextFrequency.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
 
             }
@@ -147,7 +147,7 @@ abstract class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), Dat
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0?.isNotEmpty() == true) {
-                    textInputLayoutPeriod.error =
+                    textInputLayoutFrequency.error =
                         EMPTY_STRING
                 }
             }
@@ -179,7 +179,7 @@ abstract class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), Dat
         this.set(Calendar.HOUR_OF_DAY, 0)
     }
 
-    open fun createToastError() = Toast.makeText(requireContext(), "Заполнены не все поля!", Toast.LENGTH_SHORT).show()
+    open fun createToastError() = Toast.makeText(requireContext(), getString(R.string.not_all_fields_are_filled), Toast.LENGTH_SHORT).show()
 
     abstract fun onTimeChosen(chosenTime: Long)
 }

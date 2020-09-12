@@ -97,9 +97,9 @@ class EditFragment: AddAndEditFragment() {
             }
         )
 
-        textInputEditTextNumberOfTimes.setText(habit.count.toString())
+        textInputEditTextCount.setText(habit.count.toString())
 
-        textInputEditTextPeriod.setText(
+        textInputEditTextFrequency.setText(
             when (habit.frequency) {
                 Frequency.A_DAY -> resources.getString(R.string.period_a_day)
                 Frequency.A_WEEK -> resources.getString(R.string.period_a_week)
@@ -124,7 +124,7 @@ class EditFragment: AddAndEditFragment() {
             else -> null
         }
 
-        val frequency = when (textInputEditTextPeriod.text.toString()){
+        val frequency = when (textInputEditTextFrequency.text.toString()){
             resources.getString(R.string.period_a_day) -> Frequency.A_DAY
             resources.getString(R.string.period_a_week) -> Frequency.A_WEEK
             resources.getString(R.string.period_a_month) -> Frequency.A_MONTH
@@ -139,32 +139,32 @@ class EditFragment: AddAndEditFragment() {
 
         val title = textInputEditTextTitle.text.toString()
         val description = textInputEditTextDescription.text.toString()
-        val count = textInputEditTextNumberOfTimes.text.toString()
+        val count = textInputEditTextCount.text.toString()
 
         var hasErrors = false
 
         if(title.isEmpty()){
-            textInputLayoutTitle.error = "Введите название привычки"
+            textInputLayoutTitle.error = getString(R.string.enter_the_name_of_the_habit)
             hasErrors = true
         }
 
         if(description.isEmpty()){
-            textInputLayoutDescription.error = "Введите описание"
+            textInputLayoutDescription.error = getString(R.string.enter_a_description)
             hasErrors = true
         }
 
         if(count.isEmpty()){
-            textInputLayoutNumberOfTimes.error = "Введите количество раз"
+            textInputLayoutCount.error = getString(R.string.enter_the_count)
             hasErrors = true
         }
 
         if (priority == null){
-            textInputLayoutPriority.error = "Выберите вариант из списка"
+            textInputLayoutPriority.error = getString(R.string.select_an_option_from_the_list)
             hasErrors = true
         }
 
         if (frequency == null){
-            textInputLayoutPeriod.error = "Выберите вариант из списка"
+            textInputLayoutFrequency.error = getString(R.string.select_an_option_from_the_list)
             hasErrors = true
         }
 
@@ -188,14 +188,14 @@ class EditFragment: AddAndEditFragment() {
 
     private fun showAlertDialog(){
         val builder  = android.app.AlertDialog.Builder(requireContext())
-        builder.setTitle("Удалить привычку?")
-        builder.setMessage("Это действие нельзя будет отменить")
-        builder.setPositiveButton("Удалить") { dialog, id ->
+        builder.setTitle(getString(R.string.delete_habit_question))
+        builder.setMessage(getString(R.string.this_action_cannot_be_undone))
+        builder.setPositiveButton(getString(R.string.action_delete)) { _, _ ->
             model.deleteHabit(habitForEditing)
             Navigation.findNavController(requireView()).popBackStack()
         }
 
-        builder.setNegativeButton("Отмена"){ dialog, id ->
+        builder.setNegativeButton(getString(R.string.action_cancel)){ dialog, _ ->
             dialog.cancel()
         }
         builder.show()

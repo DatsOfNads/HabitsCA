@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         val imageView = navDriver.imageView
 
         Glide.with(applicationContext)
-            .load("https://i.ibb.co/qD7LX3j/habits-logo.png")
+            .load(getString(R.string.img_source))
             .override(150, 150)
             //.placeholder(R.drawable.placeholder)
             //      .error(R.drawable.imagenotfound)

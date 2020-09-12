@@ -24,16 +24,16 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.habitsca.view.fragment.AboutFragment"
-        android:label="О приложении"
+        android:label="@string/about_menu"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.habitsca.view.fragment.AddFragment"
-        android:label="Создать привычку" />
+        android:label="@string/create_a_habit" />
     <fragment
         android:id="@+id/editFragment"
         android:name="com.example.habitsca.view.fragment.EditFragment"
-        android:label="Изменить привычку" >
+        android:label="@string/edit_a_habit" >
         <argument
             android:name="habit"
             app:argType="com.example.domain.model.Habit" />
@@ -41,6 +41,6 @@
     <fragment
         android:id="@+id/syncFragment"
         android:name="com.example.habitsca.view.fragment.SyncFragment"
-        android:label="Синхронизация"
+        android:label="@string/synchronization_menu"
         tools:layout="@layout/fragment_sync" />
 </navigation>

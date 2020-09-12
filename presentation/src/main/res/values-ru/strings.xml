@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HabitsCA</string>
+    <string name="app_name">Habits</string>
     <string name="priority_low">Низкий</string>
     <string name="priority_medium">Средний</string>
     <string name="priority_high">Высокий</string>
@@ -12,6 +12,8 @@
     <string name="sort_by_priority">По приоритету</string>
     <string name="sort_by_number_of_times">По количеству раз</string>
     <string name="sort_by_period">По периоду</string>
+    <string name="good_habit">Хорошая</string>
+    <string name="bad_habit">Плохая</string>
 
     <plurals name="plurals_done_dates">
         <item quantity="one">Выполнено %d раз</item>
@@ -26,4 +28,49 @@
         <item quantity="many">%d раз</item>
         <item quantity="other">%d раз</item>
     </plurals>
+    <string name="priority_low_full">Приоритет низкий</string>
+    <string name="priority_medium_full">Приоритет средний</string>
+    <string name="priority_high_full">Приоритет высокий</string>
+    <string name="have_not_done">Не выполнено</string>
+    <string name="not_all_fields_are_filled">Заполнены не все поля!</string>
+    <string name="enter_the_name_of_the_habit">Введите название привычки</string>
+    <string name="enter_a_description">Введите описание</string>
+    <string name="enter_the_count">Введите количество раз</string>
+    <string name="select_an_option_from_the_list">Выберите вариант из списка</string>
+    <string name="delete_habit_question">Удалить привычку?</string>
+    <string name="this_action_cannot_be_undone">Это действие нельзя будет отменить</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="good_habits">Хорошие</string>
+    <string name="bad_habits">Плохие</string>
+    <string name="it_is_worth_performing">Стоит выполнить ещё</string>
+    <string name="you_completed_the_plan">Ты выполнил план!</string>
+    <string name="you_can_do_this">Можете выполнить ещё</string>
+    <string name="you_can_not_do_this_anymore">Вы больше не можете этого делать</string>
+    <string name="stop_doing_this">Хватит это делать!</string>
+    <string name="done_message">Готово!</string>
+    <string name="something_went_wrong">Что-то пошло не так(</string>
+    <string name="there_is_no_internet_connection">Отстутствует подключение к Интернету</string>
+    <string name="search_and_sort">Поиск и сортировка</string>
+    <string name="search">Поиск</string>
+    <string name="sort">Сортировка</string>
+    <string name="developer_name">Разработал Созник Никита</string>
+    <string name="dev_email">Почта - nsoznik@gmail.com</string>
+    <string name="for_doubletapp">Для Doubletapp</string>
+    <string name="title">Название</string>
+    <string name="description">Описание</string>
+    <string name="date">Дата</string>
+    <string name="frequency">Периодичность</string>
+    <string name="priority">Приоритет</string>
+    <string name="count">Количесвто</string>
+    <string name="select_bad_habit">Плохая привычка</string>
+    <string name="select_good_habit">Хорошая привычка</string>
+    <string name="sync_your_data_with_the_server_so_that_you_don_t_lose_it">Синхронизируйте данные с сервером, чтобы не потерять их</string>
+    <string name="recover_data">Восстановить данные</string>
+    <string name="transmit_data">Передать данные</string>
+    <string name="habits_menu">Привычки</string>
+    <string name="about_menu">О приложении</string>
+    <string name="synchronization_menu">Синхронизация</string>
+    <string name="create_a_habit">Создать привычку</string>
+    <string name="edit_a_habit">Изменить привычку</string>
 </resources>

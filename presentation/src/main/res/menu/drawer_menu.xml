@@ -3,17 +3,17 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:title="Привычки"
+            android:title="@string/habits_menu"
             android:id="@+id/homeFragment"
             android:icon="@drawable/icon_home_24dp" />
 
         <item
-            android:title="Синхронизация"
+            android:title="@string/synchronization_menu"
             android:id="@+id/syncFragment"
             android:icon="@drawable/icon_sync_24dp" />
 
         <item
-            android:title="О приложении"
+            android:title="@string/about_menu"
             android:id="@+id/aboutFragment"
             android:icon="@drawable/icon_info_24dp" />
     </group>

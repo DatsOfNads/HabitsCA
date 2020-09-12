@@ -12,6 +12,8 @@ import com.example.domain.model.`object`.Type
 import com.example.habitsca.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_habit.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HabitsRecyclerViewAdapter(
     private val context: Context,
@@ -27,7 +29,7 @@ class HabitsRecyclerViewAdapter(
                 R.layout.item_habit,
                 parent,
                 false
-            )
+            ), context
         )
     }
 
@@ -37,20 +39,34 @@ class HabitsRecyclerViewAdapter(
 
         holder.bind(habit)
 
-        val doneDatesCount = habit.doneDates?.size ?: 0
-        val doneDatesPlural = context.resources.getQuantityString(R.plurals.plurals_done_dates, doneDatesCount, doneDatesCount)
 
-        holder.chipDoneDates.text = doneDatesPlural
+        val doneDatesCount = habit.doneDates?.size ?: 0
+
+        if(doneDatesCount != 0){
+            val doneDatesPlural = context.resources.getQuantityString(
+                R.plurals.plurals_done_dates,
+                doneDatesCount,
+                doneDatesCount
+            )
+
+            holder.chipDoneDates.text = doneDatesPlural
+        } else{
+            holder.chipDoneDates.text = context.getString(R.string.have_not_done)
+        }
 
         val count = habit.count
         val countPlural = context.resources.getQuantityString(R.plurals.plurals_count, count, count)
 
         holder.chipFrequency.text = countPlural.plus(
             when(habit.frequency){
-                Frequency.A_DAY -> " в день"
-                Frequency.A_WEEK -> " в неделю"
-                Frequency.A_MONTH -> " в месяц"
-                Frequency.A_YEAR -> " в год"
+                Frequency.A_DAY -> " " + context.getString(R.string.period_a_day)
+                    .toLowerCase(Locale.ROOT)
+                Frequency.A_WEEK -> " " + context.getString(R.string.period_a_week)
+                    .toLowerCase(Locale.ROOT)
+                Frequency.A_MONTH -> " " + context.getString(R.string.period_a_month)
+                    .toLowerCase(Locale.ROOT)
+                Frequency.A_YEAR -> " " + context.getString(R.string.period_a_year)
+                    .toLowerCase(Locale.ROOT)
                 else -> null
             }
         )
@@ -73,7 +89,8 @@ class HabitsRecyclerViewAdapter(
     }
 
     class MyViewHolder(
-        override val containerView: View
+        override val containerView: View,
+        val context: Context
     ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(habit: Habit) {
@@ -82,15 +99,15 @@ class HabitsRecyclerViewAdapter(
             description.text = habit.description
 
             chipType.text = when(habit.type){
-                Type.GOOD -> "Хорошая"
-                Type.BAD -> "Плохая"
+                Type.GOOD -> context.getString(R.string.good_habit)
+                Type.BAD -> context.getString(R.string.bad_habit)
                 else -> null
             }
 
             chipPriority.text = when(habit.priority){
-                Priority.LOW -> "Приоритет низкий"
-                Priority.MEDIUM -> "Приоритет средний"
-                Priority.HIGH -> "Приоритет высокий"
+                Priority.LOW -> context.getString(R.string.priority_low_full)
+                Priority.MEDIUM -> context.getString(R.string.priority_medium_full)
+                Priority.HIGH -> context.getString(R.string.priority_high_full)
                 else -> null
             }
         }

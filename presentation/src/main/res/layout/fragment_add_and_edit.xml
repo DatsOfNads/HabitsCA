@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/icon_title_24dp"
-            android:hint="Название"
+            android:hint="@string/title"
             android:inputType="textCapSentences" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,12 +44,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/icon_description_24dp"
-            android:hint="Описание"
+            android:hint="@string/description"
             android:inputType="textCapSentences" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
+        android:id="@+id/textInputLayoutDate"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
             android:focusable="false"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/icon_date_24dp"
-            android:hint="Дата" />
+            android:hint="@string/date" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -79,43 +79,18 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDate">
 
         <AutoCompleteTextView
             android:id="@+id/textInputEditTextPriority"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/icon_priority_24dp"
-            android:hint="Приоритет" />
+            android:hint="@string/priority" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutNumberOfTimes">
-
-        <RadioButton
-            android:id="@+id/radioButtonGoodHabit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Хорошая привычка" />
-
-        <RadioButton
-            android:id="@+id/radioButtonBadHabit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Плохая привычка" />
-
-    </RadioGroup>
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutNumberOfTimes"
+        android:id="@+id/textInputLayoutCount"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -127,15 +102,15 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPriority">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditTextNumberOfTimes"
-            android:inputType="numberDecimal"
+            android:id="@+id/textInputEditTextCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Количество" />
+            android:hint="@string/count"
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutPeriod"
+        android:id="@+id/textInputLayoutFrequency"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -143,15 +118,39 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayoutNumberOfTimes"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayoutCount"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPriority">
 
         <AutoCompleteTextView
-            android:id="@+id/textInputEditTextPeriod"
+            android:id="@+id/textInputEditTextFrequency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Периодичность" />
+            android:hint="@string/frequency" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCount">
+
+        <RadioButton
+            android:id="@+id/radioButtonGoodHabit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/select_good_habit" />
+
+        <RadioButton
+            android:id="@+id/radioButtonBadHabit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_bad_habit" />
+    </RadioGroup>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
