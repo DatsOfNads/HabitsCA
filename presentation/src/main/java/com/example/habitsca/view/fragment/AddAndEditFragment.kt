@@ -38,6 +38,8 @@ abstract class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), Dat
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
             )
+
+            datePickerDialog.datePicker.maxDate = Calendar.getInstance().timeInMillis
             datePickerDialog.show()
         }
 
