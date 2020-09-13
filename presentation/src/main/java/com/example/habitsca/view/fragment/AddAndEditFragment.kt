@@ -208,21 +208,12 @@ abstract class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), Dat
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DAY_OF_MONTH, day)
 
-        calendar.setTimeToStart()
-
         val millis = calendar.timeInMillis
 
         val timeString = dateFormat.format(millis)
         textInputEditTextDate.setText(timeString)
 
         onTimeChosen(millis)
-    }
-
-    open fun Calendar.setTimeToStart(){
-        this.set(Calendar.MILLISECOND, 0)
-        this.set(Calendar.SECOND, 0)
-        this.set(Calendar.MINUTE, 0)
-        this.set(Calendar.HOUR_OF_DAY, 0)
     }
 
     open fun createToastError() = Toast.makeText(requireContext(), getString(R.string.not_all_fields_are_filled), Toast.LENGTH_SHORT).show()

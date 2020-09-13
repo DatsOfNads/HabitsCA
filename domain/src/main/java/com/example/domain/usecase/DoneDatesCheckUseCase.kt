@@ -18,8 +18,8 @@ class DoneDatesCheckUseCase @Inject constructor() {
 
     fun execute(habit: Habit): HabitState{
         val doneDates = habit.doneDates ?: listOf()//это ок?
-        val timeStart = habit.date
-        val currentTime = doneDates.last().toLong()
+        val timeStart = setTimeToStart(habit.date)
+        val currentTime = setTimeToStart(doneDates.last().toLong())
         val frequencyInMills: Long = when(habit.frequency){
             A_DAY -> A_DAY_IN_MILLS
             A_WEEK -> A_WEEK_IN_MILLS
@@ -59,5 +59,20 @@ class DoneDatesCheckUseCase @Inject constructor() {
         val timeFormat = timeFormat.format(millis)
 
         return  "Дата - $dateFormat, время $timeFormat"
+    }
+
+    private fun setTimeToStart(millis: Long): Long{
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = millis
+        calendar.setTimeToStart()
+
+        return calendar.timeInMillis
+    }
+
+    private fun Calendar.setTimeToStart(){
+        this.set(Calendar.MILLISECOND, 0)
+        this.set(Calendar.SECOND, 0)
+        this.set(Calendar.MINUTE, 0)
+        this.set(Calendar.HOUR_OF_DAY, 0)
     }
 }

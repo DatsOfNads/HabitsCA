@@ -45,7 +45,6 @@ class AddFragment: AddAndEditFragment() {
         val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
         val currentTime = Calendar.getInstance()
-        currentTime.setTimeToStart()
         val timeString = dateFormat.format(currentTime.time)
 
         chosenTime = currentTime.timeInMillis
