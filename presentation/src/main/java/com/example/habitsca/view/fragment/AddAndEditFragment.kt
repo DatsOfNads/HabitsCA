@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.domain.model.`object`.Frequency
+import com.example.domain.model.`object`.Priority
 import com.example.habitsca.R
 import kotlinx.android.synthetic.main.fragment_add_and_edit.*
 import java.text.SimpleDateFormat
@@ -20,6 +22,9 @@ abstract class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), Dat
 
     companion object{
         const val EMPTY_STRING = ""
+
+        var priority: Int = Priority.LOW
+        var frequency: Int = Frequency.A_DAY
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,17 +41,9 @@ abstract class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), Dat
             datePickerDialog.show()
         }
 
-        val adapterPriority = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            arrayOf(
-                resources.getString(R.string.priority_low),
-                resources.getString(R.string.priority_medium),
-                resources.getString(R.string.priority_high)
-            )
-        )
+        textInputEditTextDate.keyListener = null
 
-        val adapterPeriod = ArrayAdapter(
+        val adapterFrequency = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line,
             arrayOf(
@@ -57,8 +54,55 @@ abstract class AddAndEditFragment: Fragment(R.layout.fragment_add_and_edit), Dat
             )
         )
 
-        textInputEditTextPriority.setAdapter(adapterPriority)
-        textInputEditTextFrequency.setAdapter(adapterPeriod)
+        textInputEditTextFrequency.apply {
+            setAdapter(adapterFrequency)
+            keyListener = null
+
+            setOnItemClickListener { adapterView, _, i, _ ->
+                when (adapterView.getItemAtPosition(i) as String) {
+                    resources.getString(R.string.period_a_day) -> frequency = Frequency.A_DAY
+                    resources.getString(R.string.period_a_week) -> frequency = Frequency.A_WEEK
+                    resources.getString(R.string.period_a_month) -> frequency = Frequency.A_MONTH
+                    resources.getString(R.string.period_a_year) -> frequency = Frequency.A_YEAR
+                }
+            }
+
+            when(frequency){
+                Frequency.A_DAY -> setText( resources.getString(R.string.period_a_day), false)
+                Frequency.A_WEEK -> setText( resources.getString(R.string.period_a_week), false)
+                Frequency.A_MONTH -> setText( resources.getString(R.string.period_a_month), false)
+                Frequency.A_YEAR -> setText( resources.getString(R.string.period_a_year), false)
+            }
+        }
+
+        val adapterPriority = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            arrayOf(
+                resources.getString(R.string.priority_low),
+                resources.getString(R.string.priority_medium),
+                resources.getString(R.string.priority_high)
+            )
+        )
+
+        textInputEditTextPriority.apply {
+            setAdapter(adapterPriority)
+            keyListener = null
+
+            setOnItemClickListener { adapterView, _, i, _ ->
+                when (adapterView.getItemAtPosition(i) as String) {
+                    resources.getString(R.string.priority_low) -> priority = Priority.LOW
+                    resources.getString(R.string.priority_medium) -> priority = Priority.MEDIUM
+                    resources.getString(R.string.priority_high) -> priority = Priority.HIGH
+                }
+            }
+
+            when(priority){
+                Priority.LOW -> setText( resources.getString(R.string.priority_low), false)
+                Priority.MEDIUM -> setText( resources.getString(R.string.priority_medium), false)
+                Priority.HIGH -> setText( resources.getString(R.string.priority_high), false)
+            }
+        }
 
         watchErrors()
     }

@@ -33,9 +33,10 @@ class HomeFragmentModel constructor(
     private val habitStateData = MutableLiveData<Event<HabitState>>()
 
     private var sortDirection = true
-    private var sortType = Sort.NONE
     private var searchedText = ""
     private val filterElements = arrayListOf<FilterElement>()
+
+    var sortType = Sort.NONE
 
     fun subscribeGoodHabits() = goodHabitsData as LiveData<List<Habit>>
     fun subscribeBadHabits() = badHabitsData as LiveData<List<Habit>>

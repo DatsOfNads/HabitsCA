@@ -15,7 +15,7 @@ import com.example.domain.model.Sort
 import com.example.domain.model.`object`.Type
 import com.example.habitsca.App
 import com.example.habitsca.R
-import com.example.habitsca.adapter.ViewPagerAdapter
+import com.example.habitsca.view.adapter.ViewPagerAdapter
 import com.example.habitsca.module.HomeFragmentModule
 import com.example.habitsca.view.viewmodel.HomeFragmentModel
 import com.example.habitsca.view.viewmodel.factory.HomeModelFactory
@@ -24,11 +24,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home_content.*
-import java.util.*
 import javax.inject.Inject
 
-
-class HomeFragment: Fragment(R.layout.fragment_home) {
+open class HomeFragment: Fragment(R.layout.fragment_home) {
 
     @Inject lateinit var viewPagerAdapter: ViewPagerAdapter
 
@@ -57,10 +55,10 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         initButtons()
     }
 
-    override fun onDestroy() {
-        model.removeObserver()
-        super.onDestroy()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        model.removeObserver()
+//    }
 
     private fun initViewPager(){
 
@@ -108,7 +106,8 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         }
 
         chipFilter.setOnCloseIconClickListener {
-            autoCompleteTextViewSort.setText(resources.getText(R.string.sort_none))
+            autoCompleteTextViewSort.setText(resources.getText(R.string.sort_none),false)
+            model.sortHabits(Sort.NONE)
         }
 
         model.subscribeFilterElement().observe(viewLifecycleOwner, { filterElements ->
@@ -182,17 +181,9 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             )
         )
 
-        autoCompleteTextViewSort.setAdapter(adapterSort)
-
-        autoCompleteTextViewSort.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                when (p0.toString()) {
+        autoCompleteTextViewSort.apply {
+            setOnItemClickListener { adapterView, _, i, _ ->
+                when (adapterView.getItemAtPosition(i) as String) {
                     resources.getString(R.string.sort_none) -> model.sortHabits(
                         Sort.NONE
                     )
@@ -208,7 +199,16 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
                 }
             }
 
-        })
+            setAdapter(adapterSort)
+            keyListener = null
+        }
+
+        when(model.sortType){
+            Sort.NONE -> autoCompleteTextViewSort.setText(resources.getString(R.string.sort_none), false)
+            Sort.BY_PRIORITY -> autoCompleteTextViewSort.setText(resources.getString(R.string.sort_by_priority), false)
+            Sort.BY_NUMBER_OF_TIMES -> autoCompleteTextViewSort.setText(resources.getString(R.string.sort_by_number_of_times), false)
+            Sort.BY_PERIOD -> autoCompleteTextViewSort.setText(resources.getString(R.string.sort_by_period), false)
+        }
     }
 
     private fun initButtons(){

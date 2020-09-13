@@ -1,4 +1,4 @@
-package com.example.habitsca.adapter
+package com.example.habitsca.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

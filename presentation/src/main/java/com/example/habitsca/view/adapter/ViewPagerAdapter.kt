@@ -1,4 +1,4 @@
-package com.example.habitsca.adapter
+package com.example.habitsca.view.adapter
 
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter

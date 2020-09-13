@@ -94,7 +94,7 @@ class EditFragment: AddAndEditFragment() {
                 Priority.MEDIUM -> resources.getString(R.string.priority_medium)
                 Priority.HIGH -> resources.getString(R.string.priority_high)
                 else -> null
-            }
+            }, false
         )
 
         textInputEditTextCount.setText(habit.count.toString())
@@ -106,7 +106,7 @@ class EditFragment: AddAndEditFragment() {
                 Frequency.A_MONTH -> resources.getString(R.string.period_a_month)
                 Frequency.A_YEAR -> resources.getString(R.string.period_a_year)
                 else -> null
-            }
+            }, false
         )
 
         when (habit.type) {

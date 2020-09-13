@@ -1,7 +1,7 @@
 package com.example.habitsca.module
 
 import androidx.fragment.app.FragmentActivity
-import com.example.habitsca.adapter.ViewPagerAdapter
+import com.example.habitsca.view.adapter.ViewPagerAdapter
 import com.example.habitsca.view.fragment.BadHabitsFragment
 import com.example.habitsca.view.fragment.GoodHabitsFragment
 import dagger.Module

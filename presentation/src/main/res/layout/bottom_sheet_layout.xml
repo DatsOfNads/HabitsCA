@@ -110,14 +110,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSearch">
 
-        <AutoCompleteTextView
+        <com.example.habitsca.view.ui.ExposedDropdownMenu
             android:id="@+id/autoCompleteTextViewSort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/icon_sort_24dp"
             android:hint="@string/sort">
-
-        </AutoCompleteTextView>
+        </com.example.habitsca.view.ui.ExposedDropdownMenu>
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton

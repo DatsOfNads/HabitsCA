@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDate">
 
-        <AutoCompleteTextView
+        <com.example.habitsca.view.ui.ExposedDropdownMenu
             android:id="@+id/textInputEditTextPriority"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
         app:layout_constraintStart_toEndOf="@+id/textInputLayoutCount"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPriority">
 
-        <AutoCompleteTextView
+        <com.example.habitsca.view.ui.ExposedDropdownMenu
             android:id="@+id/textInputEditTextFrequency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
