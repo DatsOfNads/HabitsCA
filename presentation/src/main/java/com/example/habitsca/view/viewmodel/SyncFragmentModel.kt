@@ -38,7 +38,7 @@ class SyncFragmentModel @Inject constructor(
                 updateAllDataUseCase.execute(response.first!!)
                 loadingStateData.value = LoadingState.DONE
             } else{
-                loadingStateData.value = LoadingState.ERROR
+                loadingStateData.value = LoadingState.SERVER_ERROR
             }
         }
     }
@@ -56,12 +56,16 @@ class SyncFragmentModel @Inject constructor(
                 if(isSuccessful){
                     loadingStateData.value = LoadingState.DONE
                 } else{
-                    loadingStateData.value = LoadingState.ERROR
+                    loadingStateData.value = LoadingState.SERVER_ERROR
                 }
             }else{
-                loadingStateData.value = LoadingState.ERROR
+                loadingStateData.value = LoadingState.SERVER_ERROR
             }
 
         }
+    }
+
+    fun setLoadingState(loadingState: LoadingState){
+        loadingStateData.postValue(loadingState)
     }
 }
