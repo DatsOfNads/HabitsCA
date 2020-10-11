@@ -1,6 +1,5 @@
 package com.example.habitsca
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.domain.model.Habit
 import com.example.domain.model.`object`.Frequency
 import com.example.domain.model.`object`.Priority
@@ -26,9 +25,6 @@ import org.mockito.MockitoAnnotations
 @RunWith(JUnit4::class)
 class DatabaseUnitTest {
 
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
-
     @ExperimentalCoroutinesApi
     @get:Rule
     val coroutineScope =
@@ -40,6 +36,7 @@ class DatabaseUnitTest {
     @Before
     fun before(){
         MockitoAnnotations.openMocks(this)
+
         addHabitUseCase = AddHabitUseCase(databaseRepository)
         editHabitUseCase = EditHabitUseCase(databaseRepository)
         deleteHabitUseCase = DeleteHabitUseCase(databaseRepository)
@@ -119,7 +116,7 @@ class DatabaseUnitTest {
     lateinit var getAllDataUseCase: GetAllDataUseCase
 
     @Test
-    fun getAllDataUseCase(){
+    fun getAllDataUseCaseTest(){
         val fakeDB = mutableListOf<Habit>()
         val mockedHabit = mock(Habit::class.java)
 

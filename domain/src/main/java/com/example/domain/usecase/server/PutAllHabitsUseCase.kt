@@ -11,23 +11,23 @@ class PutAllHabitsUseCase @Inject constructor(
 
     suspend fun execute(newHabits: List<Habit>, oldHabits: List<Habit>): Boolean{
 
-        oldHabits.forEach {
-            val response = serverRepository.deleteHabit(it.uid!!)
+        for(i in oldHabits.indices){
+            val response = serverRepository.deleteHabit(oldHabits[i].uid!!)
 
             if(response.second != 200)
                 return false
         }
 
-        newHabits.forEach {habit ->
-            val responsePut = serverRepository.putHabit(habit)
+        for(i in newHabits.indices){
+            val responsePut = serverRepository.putHabit(newHabits[i])
 
             if(responsePut.second != 200)
                 return false
 
             val uid = responsePut.first!!
 
-            habit.doneDates?.forEach { doneDate ->
-                val responsePost = serverRepository.postHabitDoneDate(HabitDone(doneDate.toLong(), uid))
+            for(j in newHabits[i].doneDates?.indices!!){
+                val responsePost = serverRepository.postHabitDoneDate(HabitDone(newHabits[i].doneDates!![j].toLong(), uid))
 
                 if(responsePost.second != 200)
                     return false

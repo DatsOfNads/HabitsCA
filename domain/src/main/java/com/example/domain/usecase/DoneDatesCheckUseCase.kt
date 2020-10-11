@@ -18,8 +18,8 @@ class DoneDatesCheckUseCase @Inject constructor() {
 
     fun execute(habit: Habit): HabitState{
         val doneDates = habit.doneDates ?: listOf()//это ок?
-        val timeStart = setTimeToStart(habit.date)
-        val currentTime = setTimeToStart(doneDates.last().toLong())
+        var borderTime = setTimeToStart(habit.date)
+        val lastDate = doneDates.last().toLong()
         val frequencyInMills: Long = when(habit.frequency){
             A_DAY -> A_DAY_IN_MILLS
             A_WEEK -> A_WEEK_IN_MILLS
@@ -28,13 +28,11 @@ class DoneDatesCheckUseCase @Inject constructor() {
             else -> 0
         }
 
-        var borderTime: Long = timeStart
-
-        while (borderTime <= currentTime){
+        while (borderTime <= lastDate){
             borderTime += frequencyInMills
         }
 
-        if(borderTime != currentTime){
+        if(borderTime != lastDate){
             borderTime -= frequencyInMills
         }
 
@@ -46,7 +44,6 @@ class DoneDatesCheckUseCase @Inject constructor() {
             if(it.toLong() > borderTime)
                 doneCount++
         }
-
         return HabitState(habit.type, habit.count, doneCount)
     }
 
