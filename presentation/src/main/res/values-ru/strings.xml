@@ -62,7 +62,7 @@
     <string name="date">Дата</string>
     <string name="frequency">Периодичность</string>
     <string name="priority">Приоритет</string>
-    <string name="count">Количесвто</string>
+    <string name="count">Количество</string>
     <string name="select_bad_habit">Плохая привычка</string>
     <string name="select_good_habit">Хорошая привычка</string>
     <string name="sync_your_data_with_the_server_so_that_you_don_t_lose_it">Синхронизируйте данные с сервером, чтобы не потерять их</string>
