@@ -1,9 +1,6 @@
 package com.example.habitsca
 
 import android.view.View
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import com.agoda.kakao.chipgroup.KChipGroup
-import com.agoda.kakao.edit.KEditText
 import com.agoda.kakao.edit.KTextInputLayout
 import com.agoda.kakao.recycler.KRecyclerItem
 import com.agoda.kakao.recycler.KRecyclerView
@@ -20,10 +17,6 @@ class EditFragmentScreen: Screen<EditFragmentScreen>() {
 
     val textInputLayoutTitle = KTextInputLayout{
         withId(R.id.textInputLayoutTitle)
-    }
-
-    val textInputEditTextTitle = KEditText{
-        withId(R.id.textInputEditTextTitle)
     }
 
     val textInputLayoutDescription = KTextInputLayout{
@@ -60,8 +53,6 @@ class EditFragmentScreen: Screen<EditFragmentScreen>() {
 
     class Item(parent : Matcher<View>) : KRecyclerItem<Item>(parent){
         val title = KTextView(parent) {withId(R.id.title)}
-        val description = KTextView(parent) {withId(R.id.description)}
-        val chipGroup = KChipGroup(parent){withId(R.id.chipGroup)}
     }
 
     val recycler = KRecyclerView( {

@@ -17,10 +17,10 @@ import org.mockito.MockitoAnnotations
 class DoneDatesCheckUseCaseTest {
 
     companion object{
-        const val START_DATE: Long = 1596650400000// 5 августа 2020, понедельник, 6 часов вечера--
+        const val START_DATE: Long = 1596650400000// 5 августа 2020, понедельник, 6 часов вечера
 
         //----------------Первая неделя------------------------------------------------
-        const val DATE_1: Long = 1596643200000// 5 августа 2020, понедельник, 4 часа утра--
+        const val DATE_1: Long = 1596643200000// 5 августа 2020, понедельник, 4 часа утра
         const val DATE_2: Long = 1597046400000// 10 августа 2020, суббота, 8 часов утра
         const val DATE_3: Long = 1597136400000// 11 августа 2020, воскресенье, 9 часов вечера
 

@@ -20,7 +20,7 @@ import org.junit.Rule
 import org.junit.Test
 
 
-@LargeTest //это надо?
+@LargeTest
 class EditFragmentTest {
 
     @Rule

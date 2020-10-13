@@ -1,6 +1,5 @@
 package com.example.habitsca.view
 
-import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
@@ -9,12 +8,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
-import com.example.habitsca.App
 import com.example.habitsca.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_header.view.*
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,8 +31,8 @@ class MainActivity : AppCompatActivity() {
         Glide.with(applicationContext)
             .load(getString(R.string.img_source))
             .override(150, 150)
-            //.placeholder(R.drawable.placeholder)
-            //      .error(R.drawable.imagenotfound)
+            .placeholder(R.drawable.placeholder)
+                  .error(R.drawable.placeholder)
             .circleCrop()
             .into(imageView)
 

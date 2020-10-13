@@ -55,11 +55,6 @@ open class HomeFragment: Fragment(R.layout.fragment_home) {
         initButtons()
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        model.removeObserver()
-//    }
-
     private fun initViewPager(){
 
         viewPager.adapter = viewPagerAdapter

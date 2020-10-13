@@ -10,14 +10,13 @@ import com.example.domain.model.`object`.FrequencyCount.A_DAY_IN_MILLS
 import com.example.domain.model.`object`.FrequencyCount.A_MONTH_IN_MILLS
 import com.example.domain.model.`object`.FrequencyCount.A_WEEK_IN_MILLS
 import com.example.domain.model.`object`.FrequencyCount.A_YEAR_IN_MILLS
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 class DoneDatesCheckUseCase @Inject constructor() {
 
     fun execute(habit: Habit): HabitState{
-        val doneDates = habit.doneDates ?: listOf()//это ок?
+        val doneDates = habit.doneDates ?: listOf()
         var borderTime = setTimeToStart(habit.date)
         val lastDate = doneDates.last().toLong()
         val frequencyInMills: Long = when(habit.frequency){
@@ -36,8 +35,6 @@ class DoneDatesCheckUseCase @Inject constructor() {
             borderTime -= frequencyInMills
         }
 
-        System.err.println("Точка отсчета ${printDate(borderTime)}")
-
         var doneCount = 0
 
         doneDates.forEach {
@@ -45,17 +42,6 @@ class DoneDatesCheckUseCase @Inject constructor() {
                 doneCount++
         }
         return HabitState(habit.type, habit.count, doneCount)
-    }
-
-    private val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-    private val timeFormat = SimpleDateFormat("kk:mm", Locale.getDefault())
-
-    private fun printDate(millis: Long): String{
-
-        val dateFormat = dateFormat.format(millis)
-        val timeFormat = timeFormat.format(millis)
-
-        return  "Дата - $dateFormat, время $timeFormat"
     }
 
     private fun setTimeToStart(millis: Long): Long{

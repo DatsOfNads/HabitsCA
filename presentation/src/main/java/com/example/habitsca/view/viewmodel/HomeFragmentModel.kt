@@ -63,12 +63,6 @@ class HomeFragmentModel constructor(
         subscribeAllData.observeForever(observer)
     }
 
-    fun removeObserver(){
-        subscribeAllData.removeObserver {
-            observer
-        }
-    }
-
     fun setSortDirection(sortDirection: Boolean) {
         //Если текущие значения не совпадают, переворачиваем список
         if ((sortDirection && !this.sortDirection) || (!sortDirection && this.sortDirection)) {
